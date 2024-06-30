@@ -1,0 +1,15 @@
+<div class="login-container">
+  @if(!isAuthenticated()){
+    <button class="loggin-button">
+      Login
+    </button>
+  }@else {
+    <button (click)="clicked()" class="user-profile-button">
+      <div class="icon-container">
+        <span class="auth-icon material-symbols-outlined">
+          account_circle
+        </span>
+      </div>
+    </button>
+  }
+</div>
