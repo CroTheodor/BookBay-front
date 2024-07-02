@@ -1,15 +1,18 @@
 <div class="login-container">
-  @if(!isAuthenticated()){
-    <button class="loggin-button">
-      Login
-    </button>
-  }@else {
-    <button (click)="clicked()" class="user-profile-button">
-      <div class="icon-container">
-        <span class="auth-icon material-symbols-outlined">
-          account_circle
-        </span>
-      </div>
-    </button>
+  <button (click)="clicked()" [ngClass]="{'user-profile-button-clicked': displayProfile, 'user-profile-button-normal':!displayProfile}">
+    <div class="icon-container">
+      <span class="auth-icon material-symbols-outlined">
+        account_circle
+      </span>
+    </div>
+  </button>
+  @if(displayProfile){
+  <div class="profile-icon-div">
+    @if(!isAuthenticated()){
+      <app-login-form></app-login-form>
+    }@else{
+      <div>WORK IN PROGRESS</div>
+    }
+  </div>
   }
 </div>

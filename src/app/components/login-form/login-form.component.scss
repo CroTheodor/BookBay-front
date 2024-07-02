@@ -1,0 +1,14 @@
+.login-form-container{
+  display: flex;
+  justify-content: center;
+  padding:25px;
+  .form{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    .center-button{
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

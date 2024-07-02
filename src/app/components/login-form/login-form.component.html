@@ -1,0 +1,21 @@
+<div class="login-form-container">
+  <form [formGroup]="loginFormGroup" class="form">
+    <mat-form-field class="input-fw">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" placeholder="Ex. john-doe@example.com">
+    </mat-form-field>
+    <mat-form-field class="input-fw">
+      <mat-label>Passworn</mat-label>
+      <input type="password" matInput formControlName="passowrd">
+    </mat-form-field>
+    <mat-checkbox
+      class="example-margin"
+      formControlName="remember"
+      >
+      remember
+    </mat-checkbox>
+    <div class="center-button">
+      <button mat-flat-button (click)="login()" color="primary">Submit</button>
+    </div>
+  </form>
+</div>

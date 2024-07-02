@@ -80,4 +80,8 @@ export class AuthService {
   public getUserInfo(): UserDTO | null {
     return this.userInfo();
   }
+
+  public isAuthenticated(): boolean {
+    return !!this.token();
+  }
 }

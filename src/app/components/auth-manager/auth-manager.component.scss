@@ -1,12 +1,34 @@
 .login-container{
-  .user-profile-button{
+  position: relative;
+  .user-profile-button-normal{
+    color:white;
     .icon-container{
       .auth-icon {
         font-size: 54px;
-        color:white;
         font-weight: 100;
       }
     }
     cursor: pointer;
+  }
+  .user-profile-button-clicked{
+    color:blueviolet;
+    background-color: white;
+    border-radius:15px 15px 0px 0px;
+    .icon-container{
+      .auth-icon {
+        font-size: 54px;
+        font-weight: 100;
+      }
+    }
+    cursor: pointer;
+  }
+  .profile-icon-div{
+    position: absolute;
+    width: 350px;
+    right: 0;
+    background: white;
+    border-radius: 15px 0px 15px 15px;
+    box-shadow: -1px 4px 4px 0px blueviolet;
+    transform: translateY(-8px);
   }
 }
