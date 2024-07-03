@@ -1,14 +1,21 @@
 .login-form-container{
   display: flex;
   justify-content: center;
-  padding:25px;
+  padding:40px 20px 20px 20px;
   .form{
     display: flex;
     flex-direction: column;
     width: 80%;
+    justify-content: center;
     .center-button{
       display: flex;
+      padding-top:15px;
       justify-content: center;
+    }
+    .error-text{
+      color:red;
+      font-size: 12px;
+      text-align: center;
     }
   }
 }
