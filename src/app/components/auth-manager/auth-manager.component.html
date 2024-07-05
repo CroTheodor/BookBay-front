@@ -1,37 +1,41 @@
 <div class="login-container">
-  <button (click)="clicked()" [ngClass]="{'user-profile-button-clicked': displayProfile, 'user-profile-button-normal':!displayProfile}">
+  <button
+    (click)="clicked()"
+    [ngClass]="{
+      'user-profile-button-clicked': displayProfile,
+      'user-profile-button-normal': !displayProfile,
+    }"
+  >
     <div class="icon-container">
-      @if(isAuthenticated()){
-      <span class="auth-icon material-symbols-outlined">
-        account_circle
-      </span>
-      }@else{
-      <span class="auth-icon material-symbols-outlined">
-        person
-      </span>
+      @if (isAuthenticated()) {
+        <span class="auth-icon material-symbols-outlined">
+          account_circle
+        </span>
+      } @else {
+        <span class="auth-icon material-symbols-outlined"> person </span>
       }
     </div>
   </button>
-  @if(displayProfile){
-  <div class="profile-icon-div">
-    @if(!isAuthenticated()){
-      <app-login-form (loginSuccessfull)="confirmLogin()"></app-login-form>
-    }@else{
-      <div class="user-menu-container">
-        <div class="menu-entry">
-          <span class="material-symbols-outlined">
-            description
-          </span>
-          <a [routerLink]="['/profile']">My profile</a>
+  @if (displayProfile) {
+    <div class="profile-icon-div">
+      @if (!isAuthenticated()) {
+        <app-login-form (loginSuccessfull)="confirmLogin()"></app-login-form>
+      } @else {
+        <div class="user-menu-container">
+          <div class="menu-entry">
+            <a [routerLink]="['/profile']">
+              <span class="material-symbols-outlined"> description </span>
+              Profile
+            </a>
+          </div>
+          <div class="menu-entry">
+            <a [routerLink]="['/messages']">
+              <span class="material-symbols-outlined"> chat </span>
+              Messages
+            </a>
+          </div>
         </div>
-        <div class="menu-entry">
-          <span class="material-symbols-outlined">
-            chat
-          </span>
-          <a [routerLink]="['/messages']">Messages</a>
-        </div>
-      </div>
-    }
-  </div>
+      }
+    </div>
   }
 </div>

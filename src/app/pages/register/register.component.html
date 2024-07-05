@@ -3,58 +3,108 @@
     <!-- firstname -->
     <mat-form-field class="form-field">
       <mat-label>Name</mat-label>
-      <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher"
-        placeholder="Ex. John">
-      @if (registerForm.get("name")?.hasError('required')) {
-      <mat-error>Name is <strong>required</strong></mat-error>
+      <input
+        type="text"
+        matInput
+        formControlName="name"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. John"
+      />
+      @if (registerForm.get("name")?.hasError("required")) {
+        <mat-error>Name is <strong>required</strong></mat-error>
       }
     </mat-form-field>
 
     <!-- lastname -->
     <mat-form-field class="form-field">
       <mat-label>Lastname</mat-label>
-      <input type="text" matInput formControlName="lastname" [errorStateMatcher]="matcher"
-        placeholder="Ex. Doe">
-      @if (registerForm.get("lastname")?.hasError('required')) {
-      <mat-error>Lastname is <strong>required</strong></mat-error>
+      <input
+        type="text"
+        matInput
+        formControlName="lastname"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. Doe"
+      />
+      @if (registerForm.get("lastname")?.hasError("required")) {
+        <mat-error>Lastname is <strong>required</strong></mat-error>
       }
     </mat-form-field>
 
     <!-- email -->
     <mat-form-field class="form-field">
       <mat-label>Email</mat-label>
-      <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
-        placeholder="Ex. pat@example.com">
-      @if (registerForm.get("email")?.hasError('email') && !registerForm.get("email")?.hasError('required')) {
-      <mat-error>Please enter a valid email address</mat-error>
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com"
+      />
+      @if (
+        registerForm.get("email")?.hasError("email") &&
+        !registerForm.get("email")?.hasError("required")
+      ) {
+        <mat-error>Please enter a valid email address</mat-error>
       }
-      @if (registerForm.get("email")?.hasError('required')) {
-      <mat-error>Email is <strong>required</strong></mat-error>
+      @if (registerForm.get("email")?.hasError("required")) {
+        <mat-error>Email is <strong>required</strong></mat-error>
       }
     </mat-form-field>
 
     <!-- password -->
     <mat-form-field class="form-field">
       <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password" [errorStateMatcher]="matcher">
-      @if (registerForm.get("passoword")?.hasError('required')) {
-      <mat-error>Password is <strong>required</strong></mat-error>
+      <input
+        type="password"
+        matInput
+        formControlName="password"
+        [errorStateMatcher]="matcher"
+      />
+      @if (registerForm.get("passoword")?.hasError("required")) {
+        <mat-error>Password is <strong>required</strong></mat-error>
       }
     </mat-form-field>
 
     <!-- confirm -->
     <mat-form-field class="form-field">
       <mat-label>Confirm password</mat-label>
-      <input type="password" matInput formControlName="confirm" [errorStateMatcher]="matcher">
-      @if (registerForm.get("confirm")?.hasError('required')) {
-      <mat-error>You must confirm your password</mat-error>
+      <input
+        type="password"
+        matInput
+        formControlName="confirm"
+        [errorStateMatcher]="matcher"
+      />
+      @if (registerForm.get("confirm")?.hasError("required")) {
+        <mat-error>You must confirm your password</mat-error>
       }
     </mat-form-field>
-    @if (registerForm.hasError("passwordMissmatch") && !registerForm.get("confirm")?.hasError("required")){
-    <div class="pw-error">Error: passwords do not match!</div>
+    @if (
+      registerForm.hasError("passwordMissmatch") &&
+      !registerForm.get("confirm")?.hasError("required")
+    ) {
+      <div class="pw-error">Error: passwords do not match!</div>
     }
+    <div class="error-container">
+      @if (errorMsg) {
+        <span class="error-text">{{ errorMsg }}</span>
+      }
+    </div>
     <div class="btn-container">
-      <button mat-flat-button (click)="submitRegister()" [disabled]="!registerForm.valid" color="primary">Submit</button>
+      <button
+        mat-flat-button
+        (click)="submitRegister()"
+        [disabled]="!registerForm.valid || apiLoading"
+        color="primary"
+      >
+        <div class="btn-content">
+          @if (apiLoading) {
+            <mat-icon>
+              <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
+            </mat-icon>
+          }
+          Submit
+        </div>
+      </button>
     </div>
   </form>
 </div>

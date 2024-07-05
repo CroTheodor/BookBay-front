@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { LoginFormComponent } from '../login-form/login-form.component';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-auth-manager',
@@ -11,21 +11,32 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './auth-manager.component.html',
   styleUrl: './auth-manager.component.scss'
 })
-export class AuthManagerComponent {
+export class AuthManagerComponent implements OnInit {
 
   public displayProfile: boolean = false;
   constructor(
     private authService: AuthService,
     private router: Router
-  ){
+  ) {
 
   }
 
-  public isAuthenticated(): boolean{
+  ngOnInit(): void {
+    this.router.events.subscribe(
+      (event)=>{
+        if(event instanceof NavigationEnd){
+          this.displayProfile = false;
+        }
+      }
+    )
+  }
+
+
+  public isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
 
-  public clicked(){
+  public clicked() {
     this.displayProfile = !this.displayProfile;
   }
 

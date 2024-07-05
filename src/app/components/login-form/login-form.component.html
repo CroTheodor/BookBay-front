@@ -2,26 +2,40 @@
   <form [formGroup]="loginFormGroup" class="form">
     <mat-form-field class="input-fw">
       <mat-label>Email</mat-label>
-      <input type="email" matInput formControlName="email" placeholder="Ex. john-doe@example.com">
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        placeholder="Ex. john-doe@example.com"
+      />
+      @if (displayWrongPasswordError) {
+        <mat-error class="error-text"
+          >Email or password is incorrect!</mat-error
+        >
+      }
     </mat-form-field>
-    @if(displayWrongPasswordError){
-    <span class="error-text">Email or password is incorrect!</span>
-    }
     <mat-form-field class="input-fw">
-      <mat-label>Passworn</mat-label>
-      <input type="password" matInput formControlName="password">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" />
     </mat-form-field>
-    <mat-checkbox
-      class="example-margin"
-      formControlName="remember"
-    >
+    <mat-checkbox class="example-margin" formControlName="remember">
       remember
     </mat-checkbox>
-    @if(displayGenericError){
-    <span class="error-text">We are sorry, there seems to be a problem with logging in.</span>
+    @if (displayGenericError) {
+      <span class="error-text"
+        >We are sorry, there seems to be a problem with logging in.</span
+      >
     }
     <div class="center-button">
       <button mat-flat-button (click)="login()" color="primary">Submit</button>
+    </div>
+    <div class="center-text">
+      <span
+        >Not an user?
+        <a [routerLink]="['/register']" routerLinkActive="router-link-active"
+          >Register!</a
+        ></span
+      >
     </div>
   </form>
 </div>
