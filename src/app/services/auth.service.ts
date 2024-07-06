@@ -29,6 +29,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  public setToken(token: string){
+    this.token.set(token);
+  }
+
   public login(mail: string, password: string, remember?: boolean) {
     const options = {
       headers: new HttpHeaders({
@@ -41,7 +45,7 @@ export class AuthService {
       tap((data: any) => {
         this.token.set(data.token);
         if (remember) {
-          localStorage.setItem("user_toke", data);
+          localStorage.setItem("authToken", data);
         }
       })
     )
@@ -71,6 +75,11 @@ export class AuthService {
       })
     }
     return this.http.put(this.routes.changePassword(), { password: newPassword }, options);
+  }
+
+  public logOut(){
+    localStorage.removeItem("authToken");
+    this.token.set(null);
   }
 
   public getAuthToken(): string | null {

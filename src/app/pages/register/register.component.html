@@ -40,6 +40,7 @@
         [errorStateMatcher]="matcher"
         placeholder="Ex. pat@example.com"
       />
+
       @if (
         registerForm.get("email")?.hasError("email") &&
         !registerForm.get("email")?.hasError("required")
@@ -76,19 +77,19 @@
       />
       @if (registerForm.get("confirm")?.hasError("required")) {
         <mat-error>You must confirm your password</mat-error>
+      }@else if (
+        registerForm.hasError("passwordMissmatch")
+      ) {
+        <mat-error class="pw-error">Error: passwords do not match!</mat-error>
       }
     </mat-form-field>
-    @if (
-      registerForm.hasError("passwordMissmatch") &&
-      !registerForm.get("confirm")?.hasError("required")
-    ) {
-      <div class="pw-error">Error: passwords do not match!</div>
-    }
+
     <div class="error-container">
       @if (errorMsg) {
         <span class="error-text">{{ errorMsg }}</span>
       }
     </div>
+
     <div class="btn-container">
       <button
         mat-flat-button
