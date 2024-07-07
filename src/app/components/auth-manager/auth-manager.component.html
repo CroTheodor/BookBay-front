@@ -21,19 +21,38 @@
       @if (!isAuthenticated()) {
         <app-login-form (loginSuccessfull)="confirmLogin()"></app-login-form>
       } @else {
+
         <div class="user-menu-container">
+
           <div class="menu-entry">
-            <a [routerLink]="['/profile']">
-              <span class="material-symbols-outlined"> description </span>
-              Profile
+            <a [routerLink]="['/user']">
+              <span class="material-symbols-outlined list-icon">
+                manage_accounts
+              </span>
+              <div class="entry-text"><span>Profile</span></div>
             </a>
           </div>
+
+          <hr />
+
           <div class="menu-entry">
             <a [routerLink]="['/messages']">
-              <span class="material-symbols-outlined"> chat </span>
-              Messages
+              <span class="material-symbols-outlined list-icon"> chat </span>
+              <div class="entry-text"><span>Messages</span></div>
             </a>
           </div>
+
+          <hr />
+
+          <div class="logout-container">
+
+            <button class="logout-button" (click)="logOut()">
+              <span class="material-symbols-outlined logout-icon"> logout </span>
+              <span class="logout-text"> Logout</span>
+            </button>
+
+          </div>
+
         </div>
       }
     </div>

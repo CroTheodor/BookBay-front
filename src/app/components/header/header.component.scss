@@ -1,26 +1,36 @@
-.header{
+@import '../../../styles.scss';
+
+.header {
   height: 78px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: #673ab7;
+  background: $base-color;
   align-items: center;
   padding: 12px;
-  .menu-entries{
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  .menu-entries {
     display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
-    .menu-list{
+
+    .menu-list {
       display: flex;
-      gap:32px;
+      gap: 32px;
       list-style: none;
       align-items: center;
-      li{
+
+      li {
         font-size: 1.3em;
         color: white;
         font-weight: bold;
-        padding:0px 15px 0px 15px;
+        padding: 0px 15px 0px 15px;
       }
     }
   }

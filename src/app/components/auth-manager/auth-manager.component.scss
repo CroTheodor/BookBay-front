@@ -1,47 +1,98 @@
-.login-container{
+@import "../../../styles.scss";
+
+.login-container {
   position: relative;
-  .user-profile-button-normal{
-    color:white;
-    .icon-container{
+
+  .user-profile-button-normal {
+    color: white;
+
+    .icon-container {
       .auth-icon {
         font-size: 54px;
         font-weight: 100;
       }
     }
+
     cursor: pointer;
   }
-  .user-profile-button-clicked{
-    color:blueviolet;
+
+  .user-profile-button-clicked {
+    color: $base-color;
     background-color: white;
-    border-radius:15px 15px 0px 0px;
-    .icon-container{
+    border-radius: 15px 15px 0px 0px;
+
+    .icon-container {
       .auth-icon {
         font-size: 54px;
         font-weight: 100;
       }
     }
+
     cursor: pointer;
   }
-  .profile-icon-div{
+
+  .profile-icon-div {
     position: absolute;
     right: 0;
     background: white;
     border-radius: 15px 0px 15px 15px;
-    box-shadow: -1px 4px 4px 0px blueviolet;
+    box-shadow: -1px 4px 4px 0px $base-color;
+    min-width: 250px;
     transform: translateY(-8px);
-    .user-menu-container{
-      padding: 10px 50px 10px 10px;
-      .menu-entry{
-        color: blueviolet;
+
+    .user-menu-container {
+      padding: 10px 10px 10px 10px;
+
+      .logout-container {
+        display: flex;
+        justify-content: center;
+        padding-top: 20px;
+        padding-bottom: 10px;
+
+        .logout-button {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: $base-color;
+          cursor: pointer;
+        }
+
+        .logout-icon{
+          font-size:45px;
+        }
+
+        .logout-text{
+          font-size:25px;
+        }
+      }
+
+      .menu-entry {
+        width: 100%;
+        color: $base-color;
         font-size: 24px;
         display: flex;
         gap: 13px;
-        a{
+        margin-bottom: 10px;
+        margin-top: 10px;
+
+        a {
           text-decoration: none;
-          color: blueviolet;
+          color: $base-color;
           display: flex;
-          gap: 4px;
-          justify-content: center;
+          justify-content: start;
+          font-weight: 400;
+          width: 100%;
+          align-items: center;
+
+          .list-icon {
+            font-size: 35px;
+          }
+
+          .entry-text {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+          }
         }
       }
     }
