@@ -1,1 +1,26 @@
-<p>home works!</p>
+<div class="home-container">
+  <div class="vertical-splitter">
+    <div class="new-books">
+      <div class="col-info">
+        <span>Newest listings</span>
+      </div>
+      @for (listing of latestListings; track listing) {
+        <app-listing-card [listingInfo]="listing"></app-listing-card>
+      }
+    </div>
+
+    <div class="action-options">
+      <div class="col-info">
+        <span>Navigate</span>
+      </div>
+      @if (isAuthenticated()) {
+        <div class="action">Find books</div>
+        <div class="action">Create listing</div>
+        <div class="action">Manage my listings</div>
+      } @else {
+        <div class="action">Find books</div>
+        <div class="action">Register</div>
+      }
+    </div>
+  </div>
+</div>

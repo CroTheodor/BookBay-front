@@ -1,0 +1,53 @@
+@import "../../../styles.scss";
+
+.card-container {
+  display: flex;
+  width: 420px;
+  height: 130px;
+  width: 110;
+  border: 2px solid $base-color;
+  border-radius: 4px;
+
+  img{
+    object-fit: cover;
+    width: 100px;
+    height: 100%;
+  }
+
+  .current-bid{
+    font-size:16px;
+    .info-cat{
+      font-weight: 500;
+    }
+  }
+
+  .info-container {
+    padding:5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .listing-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      .info-row {
+        display: flex;
+        gap: 4px;
+        .info-cat{
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+span {
+  color: $base-color;
+}

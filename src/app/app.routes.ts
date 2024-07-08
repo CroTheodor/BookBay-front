@@ -16,5 +16,5 @@ export const routes: Routes = [
   { path: 'user', component: ProfileComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'statistics', component: StatisticsComponent },
-  { path: '*', component: HomeComponent },
+  { path: '**', component: HomeComponent },
 ];

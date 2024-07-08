@@ -1,0 +1,47 @@
+@if (listingInfo) {
+  <div class="card-container">
+    <div class="img-container">
+      @if (listingInfo.book.cover_img) {
+        <img [src]="listingInfo.book.cover_img" />
+      } @else {
+        <img
+          [src]="'../../../assets/images/placeholder.svg'"
+          width="100px"
+          height="120px"
+        />
+      }
+    </div>
+    <div class="info-container">
+      <span class="title">{{ listingInfo.book.title }}</span>
+      <div class="listing-info">
+        @if (listingInfo.book.course) {
+          <div class="info-row">
+            <span class="info-cat">Course:</span>
+            <span>{{ listingInfo.book.course }}</span>
+          </div>
+        }
+        @if (listingInfo.book.author) {
+          <div class="info-row">
+            <span class="info-cat">Author:</span>
+            <span>{{ listingInfo.book.author }}</span>
+          </div>
+        }
+        @if (listingInfo.book.publisher) {
+          <div class="info-row">
+            <span class="info-cat">Publisher:</span>
+            <span>{{ listingInfo.book.publisher }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="current-bid">
+        <span class="info-cat">Current bid:</span>
+        @if (listingInfo.currentBid) {
+          <span>{{ listingInfo.currentBid }} €</span>
+        } @else {
+          <span>no bids</span>
+        }
+      </div>
+    </div>
+  </div>
+}
