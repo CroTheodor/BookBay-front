@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,4 +10,11 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {}
+export class LoginComponent {
+
+  constructor(private router: Router){}
+
+  public onLoginSuccess(): void{
+    this.router.navigate(['']);
+  }
+}

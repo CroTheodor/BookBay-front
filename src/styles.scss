@@ -1,15 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
   padding: 0;
   margin: 0;
 }
 
-button{
-  border:none;
-  background:none;
+button {
+  border: none;
+  background: none;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
 
-$base-color:#673ab7;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+$base-color: #333333;

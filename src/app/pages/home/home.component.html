@@ -1,25 +1,38 @@
 <div class="home-container">
   <div class="vertical-splitter">
-    <div class="new-books">
-      <div class="col-info">
-        <span>Newest listings</span>
+    @if (latestListings && latestListings.length > 0) {
+      <div class="new-books">
+        <div class="col-info">
+          <span>Newest listings</span>
+        </div>
+        @for (listing of latestListings; track listing) {
+          <app-listing-card [listingInfo]="listing"></app-listing-card>
+        }
       </div>
-      @for (listing of latestListings; track listing) {
-        <app-listing-card [listingInfo]="listing"></app-listing-card>
-      }
-    </div>
-
+    }
     <div class="action-options">
       <div class="col-info">
         <span>Navigate</span>
       </div>
+      <a [routerLink]="['/books']" class="action"
+        ><span class="material-symbols-outlined"> book_2 </span>Find books</a
+      >
       @if (isAuthenticated()) {
-        <div class="action">Find books</div>
-        <div class="action">Create listing</div>
-        <div class="action">Manage my listings</div>
+        <a [routerLink]="['/books/publish-listing']" class="action"
+          ><span class="material-symbols-outlined"> add_circle </span>Create
+          listing</a
+        >
+        <a [routerLink]="['/user/listings']" class="action"
+          ><span class="material-symbols-outlined"> edit_note </span>Manage my
+          listings</a
+        >
       } @else {
-        <div class="action">Find books</div>
-        <div class="action">Register</div>
+        <a [routerLink]="['/login']" class="action"
+          ><span class="material-symbols-outlined"> login </span>Login</a
+        >
+        <a [routerLink]="['/register']" class="action"
+          ><span class="material-symbols-outlined"> person_add </span>Register</a
+        >
       }
     </div>
   </div>

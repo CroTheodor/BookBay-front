@@ -5,11 +5,12 @@ import { ListingDTO } from '../../interfaces/listing.model';
 import { HttpResponse, PaginatedResponse } from '../../interfaces/http.model';
 import { catchError, of } from 'rxjs';
 import { ListingCardComponent } from '../../components/listing-card/listing-card.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ListingCardComponent],
+  imports: [RouterModule, ListingCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

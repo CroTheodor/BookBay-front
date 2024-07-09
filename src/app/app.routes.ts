@@ -7,13 +7,17 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { HomeComponent } from './pages/home/home.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { UserListingsComponent } from './pages/user-listings/user-listings.component';
+import { NewlistingsComponent } from './pages/newlistings/newlistings.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'books', component: BooksComponent },
+  { path: 'books/publish-listing', component: NewlistingsComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'user', component: ProfileComponent },
+  { path: 'user/listings', component: UserListingsComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'statistics', component: StatisticsComponent },
   { path: '**', component: HomeComponent },
