@@ -1,0 +1,19 @@
+.dialog-container {
+  dialog {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    overflow: hidden;
+    background: transparent;
+    border:none;
+    max-height: 80%;
+  }
+
+  dialog::backdrop {
+    background: #CDCDCD;
+    opacity: 0.65;
+  }
+}

@@ -1,0 +1,36 @@
+<app-dialog #cropperDialog>
+  <div class="img-cropper-container">
+    <image-cropper
+      #imageCropper
+      class="img-cropper"
+      [imageChangedEvent]="fileChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="3 / 4"
+      [output]="'base64'"
+      format="png"
+      [cropperMinWidth]="320"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded($event)"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+      (startCropImage)="startCropImage()"
+      (imageCroppedBase64)="printEvent($event)"
+    ></image-cropper>
+  </div>
+  <div class="button-container">
+    <button (click)="cancelCrop()">CANCEL</button>
+    <div class="info-container">
+      @if (width) {
+        <span
+          ><i>width: {{ width }}px</i></span
+        >
+      }
+      @if (height) {
+        <span
+          ><i>height: {{ height }}px</i></span
+        >
+      }
+    </div>
+    <button (click)="confirm()">SAVE</button>
+  </div>
+</app-dialog>

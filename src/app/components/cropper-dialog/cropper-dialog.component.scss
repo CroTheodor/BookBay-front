@@ -1,0 +1,24 @@
+@import '../../../styles.scss';
+.img-cropper {
+  max-height: 70vh;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  background: transparent;
+  height: 28px;
+  .info-container{
+    width: 100%;
+    display: flex;
+    gap:14px;
+    font-size:12px;
+    justify-content: center;
+    align-items: center;
+  }
+  button{
+    background: $base-color;
+    color: white;
+    width: 100%;
+  }
+}

@@ -1,1 +1,24 @@
-<p>newlistings works!</p>
+<div class="new-listing-container">
+  <div class="img-control">
+    @if (croppedImage) {
+      <img [src]="croppedImage" />
+    } @else {
+      <div class="placeholder-container">
+        <span class="material-symbols-outlined placeholder-icon"> image </span>
+      </div>
+    }
+    <input
+      type="file"
+      id="imgSelector"
+      accept="image/*"
+      (change)="fileChangeEvent($event)"
+    />
+    <label for="imgSelector" class="img-sel-button">Select image</label>
+  </div>
+</div>
+
+<app-cropper-dialog
+  #cropperDialog
+  [fileChangedEvent]="imageChangedEvent"
+  (onCrop)="croppingConfirmed($event)"
+></app-cropper-dialog>
