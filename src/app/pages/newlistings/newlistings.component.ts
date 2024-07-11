@@ -72,6 +72,7 @@ export class NewlistingsComponent {
 
   croppingConfirmed(img: string){
     if(img){
+      console.log(img);
       this.croppedImage = img;
     }
   }
