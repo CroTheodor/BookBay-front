@@ -54,6 +54,8 @@ export class RegisterComponent {
   errorMsg: string | null = null;
   apiLoading: boolean = false;
 
+  matcher = new MyErrorStateMatcher();
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -80,8 +82,6 @@ export class RegisterComponent {
       { validators: passwordMissmatch('password', 'confirm') },
     );
   }
-
-  matcher = new MyErrorStateMatcher();
 
   print() {
     console.log(this.registerForm);

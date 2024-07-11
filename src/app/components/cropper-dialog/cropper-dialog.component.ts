@@ -31,6 +31,9 @@ export class CropperDialogComponent implements OnChanges {
   @Input()
   fileChangedEvent: Event | null = null;
 
+  @Input()
+  base64img!: string;
+
   @Output()
   onCrop: EventEmitter<string> = new EventEmitter<string>();
 
@@ -54,20 +57,8 @@ export class CropperDialogComponent implements OnChanges {
     this.height = event.height;
   }
 
-  imageLoaded(image: LoadedImage) {}
-
-  cropperReady(): void {}
-
-  loadImageFailed(): void {}
-
-  startCropImage(): void {}
-
   cancelCrop(): void {
     this.cropperDialog.close();
-  }
-
-  printEvent(event: any) {
-    console.log(event);
   }
 
   confirm(): void{

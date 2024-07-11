@@ -10,11 +10,6 @@
       format="png"
       [cropperMinWidth]="320"
       (imageCropped)="imageCropped($event)"
-      (imageLoaded)="imageLoaded($event)"
-      (cropperReady)="cropperReady()"
-      (loadImageFailed)="loadImageFailed()"
-      (startCropImage)="startCropImage()"
-      (imageCroppedBase64)="printEvent($event)"
     ></image-cropper>
   </div>
   <div class="button-container">
