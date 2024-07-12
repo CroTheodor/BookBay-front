@@ -7,7 +7,7 @@ export interface HttpResponse<T>{
 export interface PaginatedResponse<T>{
   page: number;
   limit: number;
-  totalPages: number;
+  totalItems: number;
   content: T[];
 }
 

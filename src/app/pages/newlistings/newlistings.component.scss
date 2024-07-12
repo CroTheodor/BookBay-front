@@ -105,6 +105,10 @@
       background: $base-color;
       color: white;
       border-radius:4px;
+      cursor: pointer;
+    }
+    buton:disabled, button[disabled] {
+      background: #CDCDCD;
     }
   }
 }

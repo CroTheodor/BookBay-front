@@ -1,1 +1,20 @@
-<p>books works!</p>
+<div class="book-page-container">
+  <div class="inner-container">
+    <div class="list-container">
+      @for (book of bookList; track book) {
+      <button (click)="goToDetails(book._id)">
+        <app-listing-card [listingInfo]="book"></app-listing-card>
+      </button>
+      }
+    </div>
+    <mat-paginator
+      (page)="handlePageEvent($event)"
+      [pageSize]="pageSize"
+      [length]="length"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="[]"
+      [pageIndex]="pageIndex"
+    >
+    </mat-paginator>
+  </div>
+</div>

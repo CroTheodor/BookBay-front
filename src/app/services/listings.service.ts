@@ -37,4 +37,12 @@ export class ListingsService {
       }),
     );
   }
+
+  public createListing(listing: ListingDTO){
+    return this.http.post(this.ROUTES.getAll(), listing ).pipe(
+      tap((res)=>{
+        return JSON.parse(JSON.stringify(res));
+      })
+    )
+  }
 }

@@ -1,0 +1,12 @@
+.book-page-container{
+  display: flex;
+  padding: 42px;
+  justify-content: center;
+  .inner-container{
+    .list-container{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap:24px;
+    }
+  }
+}

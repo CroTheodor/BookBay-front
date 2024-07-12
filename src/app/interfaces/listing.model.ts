@@ -1,7 +1,7 @@
 import { UserDTO } from "./user.model";
 
 export interface ListingDTO{
-    id:string;
+    _id:string;
     postingUser:string | UserDTO;
     book: BookDTO;
     minBid: number;

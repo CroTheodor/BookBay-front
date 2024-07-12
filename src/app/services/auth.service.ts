@@ -71,7 +71,6 @@ export class AuthService {
       headers: new HttpHeaders({
         'cache-control': 'no-cache',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token()}`
       })
     }
     return this.http.put(this.routes.changePassword(), { password: newPassword }, options);
