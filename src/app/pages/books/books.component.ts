@@ -15,11 +15,11 @@ import { ListingDTO } from '../../interfaces/listing.model';
   styleUrl: './books.component.scss',
 })
 export class BooksComponent implements OnInit{
-  length: number = 20;
-  pageSize: number = 20;
+  length: number = 10;
+  pageSize: number = 10;
   pageIndex: number = 0;
 
-  pageSizeOptions = [20];
+  pageSizeOptions = [10];
 
   pageEvent!: PageEvent;
   bookList: ListingDTO[] = [];
@@ -44,7 +44,7 @@ export class BooksComponent implements OnInit{
 
   getActiveListings(){
     const paginator: PaginatedRequest ={
-      page:this.pageIndex + 1,
+      page:this.pageIndex,
       limit: this.pageSize
     }
     this.listingService.getActive(paginator)
@@ -59,6 +59,6 @@ export class BooksComponent implements OnInit{
   }
 
   goToDetails(id: string){
-    this.router.navigate([`books/${id}`]);
+    this.router.navigate([`books/details/${id}`]);
   }
 }

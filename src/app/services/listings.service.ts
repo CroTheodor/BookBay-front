@@ -45,4 +45,16 @@ export class ListingsService {
       })
     )
   }
+
+  public getById(id:string){
+    return this.http.get(this.ROUTES.getById(id), {}).pipe(
+      tap(res=>JSON.parse(JSON.stringify(res)))
+    )
+  }
+
+  public placeBid(id: string, amount: number) {
+    return this.http.post(this.ROUTES.bid(id), {amount: amount}).pipe(
+      tap((res)=>JSON.parse(JSON.stringify(res)))
+    )
+  }
 }

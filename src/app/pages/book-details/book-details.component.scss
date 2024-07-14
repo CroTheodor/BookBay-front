@@ -1,0 +1,121 @@
+@import "../../../styles.scss";
+
+.book-details-container {
+  padding: 42px;
+
+  h3 {
+    margin: 0px;
+    font-size: 1.6em;
+    font-weight: 600;
+    color: darkslategray;
+  }
+
+  .img-info-container {
+    display: flex;
+    gap: 58px;
+
+    .img-container {
+      border-radius: 4px;
+
+      img {
+        border-radius: 4px;
+        border: 1px solid #cdcdcd;
+      }
+    }
+
+    .horizontal-splitter {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .info-container {
+        display: flex;
+        gap: 58px;
+
+        .desc-container {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+
+          .desc-row {
+            font-size: 1.4em;
+            line-height: 1.2em;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+
+            .property {
+              font-weight: 600;
+              color: gray;
+            }
+          }
+        }
+      }
+
+      .bid-container {
+        padding-top:14px;
+        display: flex;
+        align-items: start;
+      }
+    }
+  }
+}
+
+.submit-button {
+  width: 30%;
+  padding: 10px;
+  background: $base-color;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 15px;
+  height: 56px;
+  width: 100px;
+}
+
+buton:disabled,
+button[disabled] {
+  background: #cdcdcd;
+}
+
+.bid {
+  padding: 12px;
+  background: #e9e9e9;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.bid-updated {
+  animation-name: blinking;
+  animation-duration:1.5s;
+}
+
+.nOfBids {
+  color: slategray;
+  font-size: 0.78em;
+}
+
+@keyframes blinking {
+  0%{background: white;}
+  20%{background: #e9e9e9;}
+  40%{background: white;}
+  60%{background: #e9e9e9;}
+  80%{background: white;}
+  100%{background: #e9e9e9;}
+}
+
+.time-left{
+  padding-top:24px;
+  font-size: 1.4em;
+  text-align: cetner
+}
+
+.auction-ended{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  max-width:550px;
+  span{
+    font-size:1.5em;
+  }
+}

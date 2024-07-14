@@ -2,9 +2,8 @@ export interface UserDTO {
   name: string;
   lastname: string;
   email: string;
-  id: string;
+  _id: string;
   roles: E_ROLE[];
-
 }
 
 export interface RegisterDTO{

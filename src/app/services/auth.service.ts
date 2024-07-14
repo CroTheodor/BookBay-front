@@ -45,7 +45,7 @@ export class AuthService {
       tap((data: any) => {
         this.token.set(data.token);
         if (remember) {
-          localStorage.setItem("authToken", data);
+          localStorage.setItem("authToken", data.token);
         }
       })
     )
@@ -91,5 +91,9 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     return !!this.token();
+  }
+
+  public isUsersId(id:string){
+    return this.userInfo()?._id === id;
   }
 }
