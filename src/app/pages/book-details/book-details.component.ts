@@ -119,7 +119,6 @@ export class BookDetailsComponent {
   }
 
   private higlightBid() {
-    console.log(this.bidCell);
     this.renderer.addClass(this.bidCell.nativeElement, 'bid-updated');
     setTimeout(
       () =>
