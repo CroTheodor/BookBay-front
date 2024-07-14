@@ -37,7 +37,7 @@
       <div class="current-bid">
         <span class="info-cat">Current bid:</span>
         @if (listingInfo.currentBid) {
-          <span>{{ listingInfo.currentBid }} €</span>
+          <span>{{ listingInfo.currentBid.toFixed(2) }} €</span>
         } @else {
           <span>no bids</span>
         }

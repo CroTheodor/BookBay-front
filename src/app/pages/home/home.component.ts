@@ -5,7 +5,7 @@ import { ListingDTO } from '../../interfaces/listing.model';
 import { HttpResponse, PaginatedResponse } from '../../interfaces/http.model';
 import { catchError, of } from 'rxjs';
 import { ListingCardComponent } from '../../components/listing-card/listing-card.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,9 @@ export class HomeComponent {
   constructor(
     private authService: AuthService,
     private listingService: ListingsService,
+    private router: Router
   ) {
+    //TODO: add query for soon to end
     this.getLatest();
   }
 
@@ -30,10 +32,18 @@ export class HomeComponent {
 
   public getLatest() {
     this.listingService
-      .getActive({ page: 1, limit: 3 })
+      .getActive({ page: 0, limit: 3 })
       .pipe(catchError((err) => of(err)))
       .subscribe((response: HttpResponse<PaginatedResponse<ListingDTO>>) => {
         this.latestListings = response.response.content;
       });
+  }
+
+  public getSoonToEnd(){
+
+  }
+
+  public goToListing(id: string){
+    this.router.navigate(['/books/details/' + id ])
   }
 }

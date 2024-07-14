@@ -56,7 +56,7 @@
             <div class="desc-row">
               <span class="property">Current bid:</span>
               @if (listingInfo.currentBid) {
-                <span #bidCell class="bid">{{ listingInfo.currentBid }} €</span>
+                <span #bidCell class="bid">{{ listingInfo.currentBid.toFixed(2) }} €</span>
                 <span class="nOfBids"
                   >{{ listingInfo.bids?.length }} users have placed a bid on
                   this item.</span

@@ -1,40 +1,49 @@
 <div class="home-container">
   <div class="vertical-splitter">
     @if (latestListings && latestListings.length > 0) {
-      <div class="new-books">
+      <div class="book-preview">
         <div class="col-info">
           <span>Newest listings</span>
+        </div>
+        @for (listing of latestListings; track listing) {
+          <app-listing-card (click)="goToListing(listing._id)" [listingInfo]="listing"></app-listing-card>
+        }
+      </div>
+    }
+      <div class="book-preview">
+        <div class="col-info">
+          <span>Soon to end</span>
         </div>
         @for (listing of latestListings; track listing) {
           <app-listing-card [listingInfo]="listing"></app-listing-card>
         }
       </div>
-    }
-    <div class="action-options">
-      <div class="col-info">
-        <span>Navigate</span>
-      </div>
-      <a [routerLink]="['/books']" class="action"
-        ><span class="material-symbols-outlined"> book_2 </span>Find books</a
+  </div>
+  <div class="action-options">
+    @if (isAuthenticated()) {
+      <a [routerLink]="['/books/publish-listing']" class="action"
+        ><span class="material-symbols-outlined btn-icon"> add_circle </span>
+      <span class="btn-text">
+        Create listing
+      </span>
+        </a
       >
-      @if (isAuthenticated()) {
-        <a [routerLink]="['/books/publish-listing']" class="action"
-          ><span class="material-symbols-outlined"> add_circle </span>Create
-          listing</a
-        >
-        <a [routerLink]="['/user/listings']" class="action"
-          ><span class="material-symbols-outlined"> edit_note </span>Manage my
-          listings</a
-        >
-      } @else {
-        <a [routerLink]="['/login']" class="action"
-          ><span class="material-symbols-outlined"> login </span>Login</a
-        >
-        <a [routerLink]="['/register']" class="action"
-          ><span class="material-symbols-outlined"> person_add </span
-          >Register</a
-        >
-      }
-    </div>
+      <a [routerLink]="['/user/listings']" class="action"
+        ><span class="material-symbols-outlined btn-icon"> edit_note </span>
+      <span class="btn-text">
+        Manage my listings
+      </span>
+</a
+      >
+    } @else {
+      <a [routerLink]="['/login']" class="action"
+        ><span class="material-symbols-outlined btn-icon"> login </span>
+      <span class="btn-text">Login</span></a
+      >
+      <a [routerLink]="['/register']" class="action"
+        ><span class="material-symbols-outlined btn-icon"> person_add </span>
+      <span class="btn-text">Register</span></a
+      >
+    }
   </div>
 </div>

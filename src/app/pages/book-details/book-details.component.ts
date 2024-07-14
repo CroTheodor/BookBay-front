@@ -1,6 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { ListingsService } from '../../services/listings.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ListingDTO } from '../../interfaces/listing.model';
 import { UserDTO } from '../../interfaces/user.model';
 import { CommonModule } from '@angular/common';
@@ -33,12 +33,15 @@ export class BookDetailsComponent {
 
   private subscriptions: Subscription[] = [];
 
+  private timeoutHandler!: ReturnType<typeof setTimeout>;
+
   constructor(
     private listingService: ListingsService,
     private route: ActivatedRoute,
     private authService: AuthService,
     private socket: SocketService,
     private renderer: Renderer2,
+    private router: Router
   ) {
     this.listingId = this.route.snapshot.paramMap.get('id')!;
     this.retrieveInfo();
@@ -84,7 +87,12 @@ export class BookDetailsComponent {
       .subscribe((res) => {
         if (res instanceof HttpErrorResponse) {
           alert('SOMETHING WENT WRONG');
+          if(res.status === 401){
+            this.authService.logOut();
+            this.router.navigate(['login']);
+          }
         }
+        this.amount = '';
       });
   }
 
@@ -100,12 +108,13 @@ export class BookDetailsComponent {
       const hours = timeDiff.hours() >= 0 ? timeDiff.hours() : 0;
       const minutes = timeDiff.minutes() >= 0 ? timeDiff.minutes() : 0;
       const seconds = timeDiff.seconds() >= 0 ? timeDiff.seconds() : 0;
-      this.timeLeft = `${hours}:${minutes}:${seconds}`;
+      this.timeLeft = `${hours >= 10 ? hours : '0'+ hours}:${minutes >= 10 ? minutes : '0' + minutes}:${seconds}`;
       if (hours <= 0 && minutes <= 0 && seconds <= 0) {
+        clearTimeout(this.timeoutHandler);
         this.auctionFinished = true;
         return;
       }
-      setTimeout(() => this.calculateTime(), 1000);
+      this.timeoutHandler = setTimeout(() => this.calculateTime(), 1000);
     }
   }
 
@@ -125,5 +134,9 @@ export class BookDetailsComponent {
         this.renderer.removeClass(this.bidCell.nativeElement, 'bid-updated'),
       2000,
     );
+  }
+
+  ngOnDestory(){
+    clearTimeout(this.timeoutHandler);
   }
 }
