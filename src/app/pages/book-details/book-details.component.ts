@@ -41,7 +41,7 @@ export class BookDetailsComponent {
     private authService: AuthService,
     private socket: SocketService,
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
   ) {
     this.listingId = this.route.snapshot.paramMap.get('id')!;
     this.retrieveInfo();
@@ -87,7 +87,7 @@ export class BookDetailsComponent {
       .subscribe((res) => {
         if (res instanceof HttpErrorResponse) {
           alert('SOMETHING WENT WRONG');
-          if(res.status === 401){
+          if (res.status === 401) {
             this.authService.logOut();
             this.router.navigate(['login']);
           }
@@ -108,7 +108,7 @@ export class BookDetailsComponent {
       const hours = timeDiff.hours() >= 0 ? timeDiff.hours() : 0;
       const minutes = timeDiff.minutes() >= 0 ? timeDiff.minutes() : 0;
       const seconds = timeDiff.seconds() >= 0 ? timeDiff.seconds() : 0;
-      this.timeLeft = `${hours >= 10 ? hours : '0'+ hours}:${minutes >= 10 ? minutes : '0' + minutes}:${seconds}`;
+      this.timeLeft = `${hours >= 10 ? hours : '0' + hours}:${minutes >= 10 ? minutes : '0' + minutes}:${seconds >= 10 ? seconds : '0' + seconds}`;
       if (hours <= 0 && minutes <= 0 && seconds <= 0) {
         clearTimeout(this.timeoutHandler);
         this.auctionFinished = true;
@@ -136,7 +136,7 @@ export class BookDetailsComponent {
     );
   }
 
-  ngOnDestory(){
+  ngOnDestory() {
     clearTimeout(this.timeoutHandler);
   }
 }
