@@ -1,0 +1,50 @@
+<div class="container">
+  <form [formGroup]="deliveryInfo">
+    <mat-form-field class="address-field">
+      <mat-label>Address</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="address"
+        placeholder="Ex. Via Torino "
+      />
+      @if (deliveryInfo.get("address")?.hasError("required")) {
+        <mat-error>Title field is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <div class="grouped-fields">
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="city"
+          placeholder="Ex. Venice"
+        />
+        @if (deliveryInfo.get("city")?.hasError("required")) {
+          <mat-error>Title field is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="county">
+        <mat-label>County</mat-label>
+        <mat-select formControlName="county">
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="zip-code">
+        <mat-label>ZIP code</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="post_code"
+          placeholder="Ex. 30170"
+        />
+        @if (deliveryInfo.get("postal_code")?.hasError("required")) {
+          <mat-error>Title field is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </form>
+</div>

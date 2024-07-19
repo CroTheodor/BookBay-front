@@ -18,3 +18,10 @@ export enum E_ROLE{
   MODRATOR = "r_moderator",
   STUDENT = "r_student"
 }
+
+export interface ShipmentInfoDTO {
+    address: string;
+    city: string;
+    post_code: string;
+    county: string;
+}

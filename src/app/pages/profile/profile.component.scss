@@ -1,0 +1,44 @@
+@import '../../../styles.scss';
+.container{
+  .content{
+    display: flex;
+    gap: 14px;
+    .icon-container{
+      width: 240px;
+      background: darkgray;
+      border-radius: 2px;
+      display: flex;
+      justify-content: center;
+      height: 240px;
+      span{
+        padding: 24px;
+        font-size: 12em;
+        color:#CDCDCD;
+      }
+    }
+    .personal-info{
+      display: flex;
+      flex-direction: column;
+      gap:24px;
+
+      .info-field{
+        display: flex;
+        gap:8px;
+        padding:12px 24px;
+        width: 420px;
+        .label{
+          font-size:1.4em;
+          color: $base-color;
+          font-weight: 600;
+        }
+        .info{
+          font-size:1.4em;
+          color: slategray;
+        }
+      }
+      .delivery-info{
+        padding:12px 24px;
+      }
+    }
+  }
+}

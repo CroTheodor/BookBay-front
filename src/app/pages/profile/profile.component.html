@@ -1,1 +1,30 @@
-<p>profile works!</p>
+@if (!!userInfo) {
+  <div class="container">
+    <h2>Your profile</h2>
+    <div class="content">
+      <div class="profile-icon">
+        <div class="icon-container">
+          <span class="material-symbols-outlined list-icon"> person </span>
+        </div>
+      </div>
+      <div class="personal-info">
+        <div class="info-field">
+          <span class="label">Name</span>
+          <span class="info">{{ userInfo.name }}</span>
+        </div>
+        <div class="info-field">
+          <span class="label">Lastname</span>
+          <span class="info">{{ userInfo.lastname }}</span>
+        </div>
+        <div class="info-field">
+          <span class="label">Role</span>
+          <span class="info">{{ userInfo.roles[0]}}</span>
+        </div>
+      <div class="delivery-info">
+        <h3>Delivery info</h3>
+        <app-delivery-info-card></app-delivery-info-card>
+      </div>
+      </div>
+    </div>
+  </div>
+}
