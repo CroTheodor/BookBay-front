@@ -4,6 +4,7 @@ export interface UserDTO {
   email: string;
   _id: string;
   roles: E_ROLE[];
+  shipmentInfo?: ShipmentInfoDTO;
 }
 
 export interface RegisterDTO{

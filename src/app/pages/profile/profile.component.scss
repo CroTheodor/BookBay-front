@@ -1,5 +1,6 @@
 @import '../../../styles.scss';
 .container{
+  padding:54px;
   .content{
     display: flex;
     gap: 14px;
@@ -34,6 +35,7 @@
         .info{
           font-size:1.4em;
           color: slategray;
+          text-transform: capitalize;
         }
       }
       .delivery-info{
@@ -41,4 +43,12 @@
       }
     }
   }
+}
+
+h3{
+  font-size: 1.5em;
+}
+
+h2{
+  font-size: 1.9em;
 }

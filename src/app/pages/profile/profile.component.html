@@ -18,12 +18,17 @@
         </div>
         <div class="info-field">
           <span class="label">Role</span>
-          <span class="info">{{ userInfo.roles[0]}}</span>
+          <span class="info">{{ calcRole() }}</span>
         </div>
-      <div class="delivery-info">
-        <h3>Delivery info</h3>
-        <app-delivery-info-card></app-delivery-info-card>
-      </div>
+        @if (isAuthenticated) {
+          <div class="delivery-info">
+            <h3>Delivery info</h3>
+            <app-delivery-info-card
+              [info]="userInfo.shipmentInfo!"
+              [edit]="this.userInfo.shipmentInfo ? false : true"
+            ></app-delivery-info-card>
+          </div>
+        }
       </div>
     </div>
   </div>

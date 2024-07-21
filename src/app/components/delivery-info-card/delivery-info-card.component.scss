@@ -1,0 +1,73 @@
+@import "../../../styles.scss";
+
+.container {
+  padding: 24px 4px;
+  box-shadow: -1px 1px 4px slategray;
+  border-radius: 4px;
+
+  form {
+    padding: 10px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+
+    .address-field {
+      width: 65%;
+    }
+
+    .grouped-fields {
+      display: flex;
+      gap: 8px;
+
+      .city {
+        width: 220px;
+      }
+
+      .county {
+        width: 120px;
+      }
+
+      .zip-code {
+        width: 150px;
+      }
+    }
+
+    .edit-button {
+      position: absolute;
+      top: 0;
+      right: 15px;
+      border: 2px solid $base-color;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span{
+        font-size: 3.1em;
+        color:$base-color;
+      }
+    }
+
+    .save-button {
+      position: absolute;
+      right: -4px;
+      bottom: -70px;
+      padding: 15px 25px;
+      background-color: $base-color;
+      border-radius: 0px 0px 4px 4px;
+      color: white;
+      overflow: hidden;
+    }
+  }
+}
+
+button:disabled{
+  background: #CDCDCD;
+}
+:host ::ng-deep.mdc-text-field--filled.mdc-text-field--disabled .mdc-text-field__input{
+  color: $base-color;
+}
+:host ::ng-deep.mat-mdc-select-disabled{
+  color: $base-color;
+}
