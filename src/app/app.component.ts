@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { AuthService } from './services/auth.service';
+import { SocketService } from './services/socket.service';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +12,18 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'bayb';
+  socket;
 
   constructor(
-    private authService: AuthService
+    private socketService: SocketService,
   ) {
-    this.testLogin();
+    this.socket = this.socketService.getSocket();
   }
 
-  private testLogin() {
+  ngAfterViewInit(){
+    this.socket.emit("retrieve chatrooms")
+    this.socket.on("user chatrooms", (chatrooms)=>{
+      console.log(chatrooms);
+    })
   }
 }

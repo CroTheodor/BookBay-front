@@ -4,9 +4,12 @@
       <div class="img-container">
         @if (listingInfo.book.cover_img) {
           <img width="320px" [src]="listingInfo.book.cover_img" />
-      } @else {
-        <img width="320px" [src]="'../../../assets/images/book-placeholder.png'">
-      }
+        } @else {
+          <img
+            width="320px"
+            [src]="'../../../assets/images/book-placeholder.png'"
+          />
+        }
       </div>
 
       <div class="horizontal-splitter">
@@ -56,13 +59,15 @@
             <div class="desc-row">
               <span class="property">Current bid:</span>
               @if (listingInfo.currentBid) {
-                <span #bidCell class="bid">{{ listingInfo.currentBid.toFixed(2) }} €</span>
+                <span #bidCell class="bid"
+                  >{{ listingInfo.currentBid.toFixed(2) }} €</span
+                >
                 <span class="nOfBids"
                   >{{ listingInfo.bids?.length }} users have placed a bid on
                   this item.</span
                 >
               } @else {
-                <span class="bid">No bids</span>
+                <span #bidCell class="bid">No bids</span>
               }
             </div>
           </div>
@@ -116,6 +121,13 @@
           </div>
         }
       </div>
+    </div>
+    <div class="chat-window">
+      <div class="messages-container">There are no messages for this listing. Be the first one to ask a question.</div>
+      <mat-form-field class="full-width">
+        <mat-label>Ask a question</mat-label>
+        <textarea matInput placeholder="Ex. What is the book condition..."></textarea>
+      </mat-form-field>
     </div>
   </div>
 }
