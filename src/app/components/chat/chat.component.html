@@ -1,0 +1,10 @@
+<div class="chat-container">
+  @if (!chatroom || !chatroom.messages || chatroom.messages.length === 0) {
+    <div class="empty-state">
+      {{ emptyStateText }}
+    </div>
+  } @else {
+    <div class="message-screen">
+    </div>
+  }
+</div>

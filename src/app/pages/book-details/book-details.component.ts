@@ -11,11 +11,12 @@ import { AuthService } from '../../services/auth.service';
 import moment from 'moment';
 import { SocketService } from '../../services/socket.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ChatComponent } from '../../components/chat/chat.component';
 
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [MatInputModule, CommonModule, FormsModule],
+  imports: [MatInputModule, CommonModule, FormsModule, ChatComponent],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss',
 })
