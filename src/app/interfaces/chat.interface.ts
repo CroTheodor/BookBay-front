@@ -11,6 +11,6 @@ export interface MessageDTO {
   userId: string;
   userName?: string;
   userLastname?: string;
-  date: string;
+  date?: string;
   content: string;
 }

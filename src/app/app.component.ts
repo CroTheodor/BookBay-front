@@ -12,18 +12,18 @@ import { SocketService } from './services/socket.service';
 })
 export class AppComponent {
   title = 'bayb';
-  socket;
 
   constructor(
     private socketService: SocketService,
   ) {
-    this.socket = this.socketService.getSocket();
   }
 
   ngAfterViewInit(){
-    this.socket.emit("retrieve chatrooms")
-    this.socket.on("user chatrooms", (chatrooms)=>{
-      console.log(chatrooms);
-    })
+    this.socketService.retrieveChatrooms()
+      .subscribe(
+        (chatrooms: string[] | null)=>{
+          // console.log(chatrooms);
+        }
+      )
   }
 }

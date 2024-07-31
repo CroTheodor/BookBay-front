@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { ListingsService } from '../../services/listings.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListingDTO } from '../../interfaces/listing.model';
@@ -12,6 +12,7 @@ import moment from 'moment';
 import { SocketService } from '../../services/socket.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChatComponent } from '../../components/chat/chat.component';
+import { MessageDTO } from '../../interfaces/chat.interface';
 
 @Component({
   selector: 'app-book-details',
@@ -20,7 +21,7 @@ import { ChatComponent } from '../../components/chat/chat.component';
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss',
 })
-export class BookDetailsComponent {
+export class BookDetailsComponent implements OnDestroy {
   @ViewChild('bidCell')
   bidCell!: ElementRef;
 
@@ -56,6 +57,7 @@ export class BookDetailsComponent {
       this.calculateTime();
     });
   }
+
 
   amountValid(): boolean {
     let inferiourAmount = false;
@@ -137,7 +139,10 @@ export class BookDetailsComponent {
     );
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     clearTimeout(this.timeoutHandler);
+    this.subscriptions.forEach(
+      (sub)=>sub.unsubscribe()
+    )
   }
 }

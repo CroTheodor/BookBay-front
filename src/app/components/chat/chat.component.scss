@@ -1,0 +1,54 @@
+@import "../../../styles.scss";
+
+.chat-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+
+  .message-screen {
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+
+    .message-container {
+      width: 45%;
+    }
+
+    .flex-end {
+      align-self: flex-end;
+    }
+  }
+
+  .input-container {
+    width: 100%;
+
+    .chat-input {
+      width: 100%;
+      min-height: 200px;
+
+      textarea {
+        min-height: 200px;
+      }
+    }
+  }
+
+  .button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    .send-msg {
+      padding: 14px 34px;
+      background: $base-color;
+      color: white;
+      border-radius: 4px;
+    }
+
+    button:disabled {
+      background: #cdcdcd;
+    }
+  }
+}

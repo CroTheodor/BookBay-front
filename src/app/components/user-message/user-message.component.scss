@@ -1,0 +1,25 @@
+@import '../../../styles.scss';
+
+.msg-container{
+  width: 100%;
+}
+.username{
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.message{
+  min-height: 28px;
+  font-size: 1.2em;
+  padding: 6px 8px;
+  background: #EDEDED;
+  border-radius:4px;
+  color: $base-color;
+}
+
+.time{
+  display: flex;
+  justify-content: flex-end;
+  padding-right:8px;
+  font-size: 0.9em;
+}
