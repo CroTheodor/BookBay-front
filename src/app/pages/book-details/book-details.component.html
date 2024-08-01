@@ -122,8 +122,11 @@
         }
       </div>
     </div>
+    <div class="py">
+      <h3>Comments</h3>
+    </div>
     <div class="chat-window">
-      <app-chat [chatroomId]="listingInfo._id"></app-chat>
+      <app-chat [chatroomId]="listingInfo._id" [emptyStateText]="chatEmptyState"></app-chat>
     </div>
   </div>
 }

@@ -12,7 +12,6 @@ import moment from 'moment';
 import { SocketService } from '../../services/socket.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChatComponent } from '../../components/chat/chat.component';
-import { MessageDTO } from '../../interfaces/chat.interface';
 
 @Component({
   selector: 'app-book-details',
@@ -30,6 +29,8 @@ export class BookDetailsComponent implements OnDestroy {
   public publisherInfo!: UserDTO;
   public amount = '';
   public timeLeft = '';
+
+  public chatEmptyState = "There are no comments yet.\n Be the first to leave one."
 
   public auctionFinished = false;
 

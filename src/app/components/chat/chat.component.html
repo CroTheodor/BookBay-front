@@ -1,21 +1,27 @@
 <div class="chat-container">
   @if (!chatroom || !chatroom.messages || chatroom.messages.length === 0) {
     <div class="empty-state">
+      <span class="material-symbols-outlined icon"> chat </span>
+    <span class="text">
       {{ emptyStateText }}
+    </span>
     </div>
   } @else {
     <div class="message-screen">
-        @for (message of chatroom.messages; track message) {
-        <div class="message-container" [ngClass]="{ 'flex-end': isUserPost(message.userId) }">
-            <app-user-message
-              [lastname]="unpackLastname(message)!"
-              [name]="unpackName(message)!"
-              [message]="message.content"
-              [time]="message.date | date: 'HH:mm'"
-              [alignLeft]="!isUserPost(message.userId)"
-            ></app-user-message>
-          </div>
-        }
+      @for (message of chatroom.messages; track message) {
+        <div
+          class="message-container"
+          [ngClass]="{ 'flex-end': isUserPost(message.userId) }"
+        >
+          <app-user-message
+            [lastname]="unpackLastname(message)!"
+            [name]="unpackName(message)!"
+            [message]="message.content"
+            [time]="message.date | date: 'HH:mm'"
+            [alignLeft]="!isUserPost(message.userId)"
+          ></app-user-message>
+        </div>
+      }
     </div>
   }
   <div class="input-container">
