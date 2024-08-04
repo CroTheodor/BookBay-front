@@ -59,7 +59,6 @@ export class BookDetailsComponent implements OnDestroy {
     });
   }
 
-
   amountValid(): boolean {
     let inferiourAmount = false;
     const currentBid = this.listingInfo.currentBid;
@@ -138,6 +137,14 @@ export class BookDetailsComponent implements OnDestroy {
         this.renderer.removeClass(this.bidCell.nativeElement, 'bid-updated'),
       2000,
     );
+  }
+
+  public contactOwner(){
+    if(!this.authService.isAuthenticated()){
+      return;
+    }
+    this.socket.createTempChatroom(this.authService.getUserInfo()!, this.listingInfo, this.listingInfo.postingUser as UserDTO);
+    this.router.navigate(['/messages']);
   }
 
   ngOnDestroy() {

@@ -13,17 +13,5 @@ import { SocketService } from './services/socket.service';
 export class AppComponent {
   title = 'bayb';
 
-  constructor(
-    private socketService: SocketService,
-  ) {
-  }
-
-  ngAfterViewInit(){
-    this.socketService.retrieveChatrooms()
-      .subscribe(
-        (chatrooms: string[] | null)=>{
-          // console.log(chatrooms);
-        }
-      )
-  }
+  constructor(private socket: SocketService) { }
 }

@@ -1,0 +1,55 @@
+@import '../../../styles.scss';
+.msg-page-container {
+  width: 1248px;
+
+  .chat-integrator {
+    display: flex;
+    gap: 4px;
+    border: 2px solid #CBCBCB;
+    border-radius: 4px;
+
+    .chat-rooms {
+      width: 30%;
+      display: flex;
+      gap:2px;
+      flex-direction: column;
+      overflow-y: scroll;
+      max-height: 740px;
+
+      .tab {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding: 12px 0px 12px 12px;
+        background-color: #cbcbcb;
+        height: 124px;
+        gap: 34px;
+        .notification-icon{
+          span{
+            font-size: 4em;
+            color:orange;
+          }
+          .hidden{
+            visibility: hidden;
+          }
+        }
+        .btn-content{
+          font-size: 1.4em;
+          height: 42px;
+          display: flex;
+          flex-direction: column;
+          gap:4px;
+
+        }
+      }
+      .selected {
+        background-color: $base-color;
+        color: white;
+      }
+    }
+
+    .chat {
+      width: 70%;
+    }
+  }
+}

@@ -1,1 +1,39 @@
-<p>messages works!</p>
+<div class="msg-page-container">
+  <h1>Your messages</h1>
+  <div class="chat-integrator">
+    <div class="chat-rooms">
+      @for (chatroom of userChatrooms; track chatroom.chatroom.chatroomId) {
+        <button
+          (click)="selectTab(userChatrooms.length - 1 - $index)"
+          class="tab"
+          [ngClass]="{
+            selected: userChatrooms[userChatrooms.length - 1 - $index].selected,
+          }"
+        >
+          <div class="notification-icon">
+            <span class="material-symbols-outlined" [ngClass]="{'hidden':!userChatrooms[userChatrooms.length - 1 - $index].newMessage}">
+              priority_high
+            </span>
+          </div>
+          <div class="btn-content">
+            <span>
+              User:
+              {{ getContactName( userChatrooms[userChatrooms.length - 1 - $index].chatroom) }}
+            </span>
+            <span>
+              ({{ userChatrooms[userChatrooms.length - 1 - $index].chatroom .listingId?.book?.title }}
+              by
+              {{ userChatrooms[userChatrooms.length - 1 - $index].chatroom .listingId?.book?.author }})
+            </span>
+          </div>
+        </button>
+      }
+    </div>
+    <div class="chat">
+      <app-chat
+        [chatroom]="selectedChatroom"
+        [privateMessage]="true"
+      ></app-chat>
+    </div>
+  </div>
+</div>
