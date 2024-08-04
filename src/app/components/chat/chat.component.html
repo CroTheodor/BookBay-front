@@ -1,46 +1,32 @@
 <div class="chat-container">
   @if (!chatroom || !chatroom.messages || chatroom.messages.length === 0) {
-    <div class="empty-state">
-      <span class="material-symbols-outlined icon"> chat </span>
+  <div class="empty-state">
+    <span class="material-symbols-outlined icon"> chat </span>
     <span class="text">
-      {{ emptyStateText }}
+      {{ this.isAuthenticated ? emptyStateText : "Login or register to leave a comment." }}
     </span>
-    </div>
+  </div>
   } @else {
-    <div class="message-screen">
-      @for (message of chatroom.messages; track message) {
-        <div
-          class="message-container"
-          [ngClass]="{ 'flex-end': isUserPost(message.userId) }"
-        >
-          <app-user-message
-            [lastname]="unpackLastname(message)!"
-            [name]="unpackName(message)!"
-            [message]="message.content"
-            [time]="message.date | date: 'HH:mm'"
-            [alignLeft]="!isUserPost(message.userId)"
-          ></app-user-message>
-        </div>
-      }
+  <div class="message-screen">
+    @for (message of chatroom.messages; track message) {
+    <div class="message-container" [ngClass]="{ 'flex-end': isUserPost(message.userId) }">
+      <app-user-message [lastname]="unpackLastname(message)!" [name]="unpackName(message)!" [message]="message.content"
+        [time]="message.date | date: 'HH:mm'" [alignLeft]="!isUserPost(message.userId)"></app-user-message>
     </div>
+    }
+  </div>
   }
+  @if (this.isAuthenticated) {
   <div class="input-container">
     <mat-form-field class="chat-input">
-      <mat-label>Leave a comment</mat-label>
-      <textarea
-        [(ngModel)]="inputText"
-        matInput
-        placeholder="Ex. It makes me feel..."
-      ></textarea>
+      <mat-label>{{this.label}}</mat-label>
+      <textarea [(ngModel)]="inputText" matInput placeholder="Ex. This is some example text"></textarea>
     </mat-form-field>
   </div>
   <div class="button-container">
-    <button
-      [disabled]="this.inputText.length === 0"
-      (click)="sendMessage()"
-      class="send-msg"
-    >
+    <button [disabled]="this.inputText.length === 0" (click)="sendMessage()" class="send-msg">
       Send
     </button>
   </div>
+  }
 </div>

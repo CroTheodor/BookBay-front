@@ -4,7 +4,9 @@
     <ul class="menu-list">
       <li><a [routerLink]="['/books']" routerLinkActive="router-link-active" >Find books</a></li>
       <li><a [routerLink]="['/faq']" routerLinkActive="router-link-active" >FAQ</a></li>
-      <li><a [routerLink]="['/statistics']" routerLinkActive="router-link-active" >Statistics</a></li>
+      @if(this.isModerator){
+        <li><a [routerLink]="['/statistics']" routerLinkActive="router-link-active" >Statistics</a></li>
+      }
       <li><app-auth-manager></app-auth-manager></li>
     </ul>
   </div>

@@ -1,133 +1,112 @@
 @if (listingInfo) {
-  <div class="book-details-container">
-    <div class="img-info-container">
-      <div class="img-container">
-        @if (listingInfo.book.cover_img) {
-          <img width="320px" [src]="listingInfo.book.cover_img" />
-        } @else {
-          <img
-            width="320px"
-            [src]="'../../../assets/images/book-placeholder.png'"
-          />
-        }
-      </div>
+<div class="book-details-container">
+  <div class="img-info-container">
+    <div class="img-container">
+      @if (listingInfo.book.cover_img) {
+      <img width="320px" [src]="listingInfo.book.cover_img" />
+      } @else {
+      <img width="320px" [src]="'../../../assets/images/book-placeholder.png'" />
+      }
+    </div>
 
-      <div class="horizontal-splitter">
-        <div class="info-container">
-          <div class="desc-container">
-            <h3>Book info</h3>
-            <div class="desc-row">
-              <span class="property">Title:</span
-              ><span>{{ listingInfo.book.title }}</span>
-            </div>
-
-            <div class="desc-row">
-              <span class="property">Author:</span
-              ><span>{{ listingInfo.book.author }}</span>
-            </div>
-
-            @if (listingInfo.book.course) {
-              <div class="desc-row">
-                <span class="property">Course:</span
-                ><span>{{ listingInfo.book.course }}</span>
-              </div>
-            }
-
-            @if (listingInfo.book.publisher) {
-              <div class="desc-row">
-                <span class="property">Publisher:</span
-                ><span>{{ listingInfo.book.publisher }}</span>
-              </div>
-            }
+    <div class="horizontal-splitter">
+      <div class="info-container">
+        <div class="desc-container">
+          <h3>Book info</h3>
+          <div class="desc-row">
+            <span class="property">Title:</span><span>{{ listingInfo.book.title }}</span>
           </div>
 
-          <div class="desc-container">
-            <h3>Listing info</h3>
-
-            <div class="desc-row">
-              <span class="property">Listed by:</span>
-              <span>{{ publisherInfo.name }} {{ publisherInfo.lastname }}</span>
-              <button (click)="contactOwner()">(contact)</button>
-            </div>
-
-            <div class="desc-row">
-              <span class="property">Listing date:</span>
-              <span>{{
-                listingInfo.listingDate | date: "dd/mm/yyyy 'at' hh:mm a"
-              }}</span>
-            </div>
-
-            <div class="desc-row">
-              <span class="property">Current bid:</span>
-              @if (listingInfo.currentBid) {
-                <span #bidCell class="bid"
-                  >{{ listingInfo.currentBid.toFixed(2) }} €</span
-                >
-                <span class="nOfBids"
-                  >{{ listingInfo.bids?.length }} users have placed a bid on
-                  this item.</span
-                >
-              } @else {
-                <span #bidCell class="bid">No bids</span>
-              }
-            </div>
+          <div class="desc-row">
+            <span class="property">Author:</span><span>{{ listingInfo.book.author }}</span>
           </div>
+
+          @if (listingInfo.book.course) {
+          <div class="desc-row">
+            <span class="property">Course:</span><span>{{ listingInfo.book.course }}</span>
+          </div>
+          }
+
+          @if (listingInfo.book.publisher) {
+          <div class="desc-row">
+            <span class="property">Publisher:</span><span>{{ listingInfo.book.publisher }}</span>
+          </div>
+          }
         </div>
 
-        @if (!auctionFinished) {
-          <div class="info-container">
-            <div>
-              <h3>Time left</h3>
-              <div class="time-left">
-                {{ timeLeft }}
-              </div>
-            </div>
-            @if (!isUsersBook()) {
-              <div>
-                <h3>Place bid</h3>
-                <div class="bid-container">
-                  <mat-form-field class="title-field">
-                    <mat-label>Amount</mat-label>
-                    <input
-                      type="number"
-                      matInput
-                      [(ngModel)]="amount"
-                      placeholder="ex. 12.12"
-                    />
-                  </mat-form-field>
-                  <button
-                    (click)="placeBid()"
-                    [disabled]="!amountValid()"
-                    class="submit-button"
-                  >
-                    PLACE BID
-                  </button>
-                </div>
-              </div>
+        <div class="desc-container">
+          <h3>Listing info</h3>
+
+          <div class="desc-row">
+            <span class="property">Listed by:</span>
+            <span>{{ publisherInfo.name }} {{ publisherInfo.lastname }}</span>
+            @if(this.isAuthenticated){
+              <button (click)="contactOwner()">(contact)</button>
             }
           </div>
-        } @else {
-          <div class="auction-ended">
-            @if (
-              listingInfo && listingInfo.minBid! <= listingInfo.currentBid!
-            ) {
-              <span>This auction has been successfully concluded.</span>
+
+          <div class="desc-row">
+            <span class="property">Listing date:</span>
+            <span>{{
+              listingInfo.listingDate | date: "dd/mm/yyyy 'at' hh:mm a"
+              }}</span>
+          </div>
+
+          <div class="desc-row">
+            <span class="property">Current bid:</span>
+            @if (listingInfo.currentBid) {
+            <span #bidCell class="bid">{{ listingInfo.currentBid.toFixed(2) }} €</span>
+            <span class="nOfBids">{{ listingInfo.bids?.length }} users have placed a bid on
+              this item.</span>
             } @else {
-              <span
-                >The auction has concluded, but the minimum target ({{
-                  listingInfo.minBid.toFixed(2)
-                }}€) has not been reached.</span
-              >
+            <span #bidCell class="bid">No bids</span>
             }
           </div>
+        </div>
+      </div>
+
+      @if (!auctionFinished) {
+      <div class="info-container">
+        <div>
+          <h3>Time left</h3>
+          <div class="time-left">
+            {{ timeLeft }}
+          </div>
+        </div>
+        @if (!isUsersBook() && this.isAuthenticated) {
+        <div>
+          <h3>Place bid</h3>
+          <div class="bid-container">
+            <mat-form-field class="title-field">
+              <mat-label>Amount</mat-label>
+              <input type="number" matInput [(ngModel)]="amount" placeholder="ex. 12.12" />
+            </mat-form-field>
+            <button (click)="placeBid()" [disabled]="!amountValid()" class="submit-button">
+              PLACE BID
+            </button>
+          </div>
+        </div>
         }
       </div>
-    </div>
-    <div class="py">
-      <h3>Comments</h3>
-    </div>
-    <div class="chat-window">
-      <app-chat [chatroomId]="listingInfo._id" [emptyStateText]="chatEmptyState"></app-chat>
+      } @else {
+      <div class="auction-ended">
+        @if (
+        listingInfo && listingInfo.minBid! <= listingInfo.currentBid! ) { <span>This auction has been successfully
+          concluded.</span>
+          } @else {
+          <span>The auction has concluded, but the minimum target ({{
+            listingInfo.minBid.toFixed(2)
+            }}€) has not been reached.</span>
+          }
+      </div>
+      }
     </div>
   </div>
+  <div class="py">
+    <h3>Comments</h3>
+  </div>
+  <div class="chat-window">
+    <app-chat [chatroomId]="listingInfo._id" [emptyStateText]="chatEmptyState" [label]="'Leave a comment'"></app-chat>
+  </div>
+</div>
 }

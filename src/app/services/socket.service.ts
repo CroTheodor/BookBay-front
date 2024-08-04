@@ -22,6 +22,11 @@ export class SocketService {
 
   private roomSubscription: Subscription | null = null;
 
+  private chatroomNotificationSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+  private roomsWithNotifications: string[] = [];
+
+  private userNotificationsSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private authService: AuthService) {
     this.socket = io('localhost:3500', {
       query: {
@@ -52,12 +57,20 @@ export class SocketService {
       }
     })
 
+    this.socket.on("connect_error", (err)=>{
+      console.log(err.message);
+    })
+
+
     this.socket.on(SocketListenEvents.PRIVATE_MESSAGE, (message: MessageDTO, roomId: string)=>{
       const roomSubject = this.messageSignalList.get(roomId);
       if(!roomSubject){
         return;
       }
       roomSubject.next(message);
+      if(!(message.userId === this.authService.getUserInfo()?._id)){
+        this.addNotification(roomId);
+      }
     })
 
     this.socket.on(SocketListenEvents.PUBLIC_MESSAGE, (message: MessageDTO, roomId: string)=>{
@@ -148,10 +161,16 @@ export class SocketService {
     }
     this.joinedRooms.push({chatroom: room, newMessages: hasNewMessages})
     this.joinedRoomSubject.next({chatroom: room, newMessages: hasNewMessages});
+    this.messageSignalList.set(room.chatroomId, new BehaviorSubject<MessageDTO | null>(null));
+    if(hasNewMessages){
+      this.roomsWithNotifications.push(room.chatroomId);
+      this.userNotificationsSubject.next(true);
+    }
     this.socket.emit(SocketEmitEvents.JOIN_ROOM, room.chatroomId);
   }
 
   public joinPublicRoom(roomId: string){
+    this.messageSignalList.set(roomId, new BehaviorSubject<MessageDTO | null>(null))
     this.socket.emit(SocketEmitEvents.JOIN_ROOM, roomId);
   }
 
@@ -180,5 +199,33 @@ export class SocketService {
 
   public getTempChatroom(){
     return this.tempChatroom;
+  }
+
+  private addNotification(id: string){
+    this.userNotificationsSubject.next(true);
+    this.chatroomNotificationSubject.next(id);
+    this.roomsWithNotifications.push(id);
+  }
+
+  public removeNotification(id: string){
+    this.socket.emit(SocketEmitEvents.MESSAGE_VIEWED, id);
+    this.joinedRooms.forEach((room: JoindChatroom)=>{
+      if(room.chatroom.chatroomId === id){
+        room.newMessages = false;
+      }
+    })
+    this.roomsWithNotifications = this.roomsWithNotifications.filter((roomId)=>roomId != id);
+    this.chatroomNotificationSubject.next(null);
+    if(this.roomsWithNotifications.length === 0){
+      this.userNotificationsSubject.next(false);
+    }
+  }
+
+  public getNotificationObservable(){
+    return this.chatroomNotificationSubject.asObservable();
+  }
+
+  public getAppNotificationObservabe(){
+    return this.userNotificationsSubject.asObservable();
   }
 }

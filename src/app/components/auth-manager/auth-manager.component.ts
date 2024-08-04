@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { LoginFormComponent } from '../login-form/login-form.component';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { SocketService } from '../../services/socket.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth-manager',
@@ -14,11 +16,13 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 export class AuthManagerComponent implements OnInit {
 
   public displayProfile: boolean = false;
+  public notification$!: Observable<boolean>;
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private socket: SocketService,
   ) {
-
+    this.notification$ = this.socket.getAppNotificationObservabe();
   }
 
   ngOnInit(): void {

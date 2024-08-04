@@ -1,1 +1,58 @@
-<p>user-listings works!</p>
+<h1>Your listings</h1>
+<div class="user-listing-container">
+  <div class="sections">
+    <button (click)="setTab(0)" [ngClass]="{ selected: selectedTab === 0 }">
+      Active Listings
+    </button>
+    <button (click)="setTab(1)" [ngClass]="{ selected: selectedTab === 1 }">
+      Expired Listings
+    </button>
+    <button (click)="setTab(2)" [ngClass]="{ selected: selectedTab === 2 }">
+      Won auctions
+    </button>
+  </div>
+  @switch (selectedTab) {
+  @case (0) {
+  <div class="inner-container">
+    <div class="list-container">
+      @for (listing of activeListings; track listing) {
+      <button (click)="goToDetails(listing._id)">
+        <app-listing-card [listingInfo]="listing"></app-listing-card>
+      </button>
+      }
+    </div>
+    <mat-paginator (page)="handlePageEventActive($event)" [pageSize]="pageSizeActive" [length]="lengthActive"
+      [showFirstLastButtons]="true" [pageSizeOptions]="[]" [pageIndex]="pageIndexActive">
+    </mat-paginator>
+  </div>
+  }
+  @case (1) {
+  <div class="inner-container">
+    <div class="list-container">
+      @for (listing of expiredListings; track listing) {
+      <button (click)="goToDetails(listing._id)">
+        <app-listing-card [listingInfo]="listing"></app-listing-card>
+      </button>
+      }
+    </div>
+    <mat-paginator (page)="handlePageEventExpired($event)" [pageSize]="pageSizeExpired" [length]="lengthExpired"
+      [showFirstLastButtons]="true" [pageSizeOptions]="[]" [pageIndex]="pageIndexExpired">
+    </mat-paginator>
+  </div>
+  }
+  @case (2) {
+  <div class="inner-container">
+    <div class="list-container">
+      @for (listing of wonListings; track listing) {
+      <button (click)="goToDetails(listing._id)">
+        <app-listing-card [listingInfo]="listing"></app-listing-card>
+      </button>
+      }
+    </div>
+    <mat-paginator (page)="handlePageEventWon($event)" [pageSize]="pageSizeWon" [length]="lengthWon"
+      [showFirstLastButtons]="true" [pageSizeOptions]="[]" [pageIndex]="pageIndexWon">
+    </mat-paginator>
+  </div>
+  }
+  }
+</div>

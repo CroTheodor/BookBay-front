@@ -1,60 +1,87 @@
 <div class="login-container">
-  <button
-    (click)="clicked()"
-    [ngClass]="{
+  <button (click)="clicked()" [ngClass]="{
       'user-profile-button-clicked': displayProfile,
       'user-profile-button-normal': !displayProfile,
-    }"
-  >
+    }">
     <div class="icon-container">
       @if (isAuthenticated()) {
-        <span class="auth-icon material-symbols-outlined">
-          account_circle
-        </span>
+      <span class="auth-icon material-symbols-outlined">
+        account_circle
+      </span>
+      <div [ngClass]="{ hidden: !(notification$ | async) }" class="notification"></div>
       } @else {
-        <span class="auth-icon material-symbols-outlined"> person </span>
+      <span class="auth-icon material-symbols-outlined"> person </span>
       }
     </div>
   </button>
   @if (displayProfile) {
-    <div class="profile-icon-div">
-      @if (!isAuthenticated()) {
-        <app-login-form (loginSuccessfull)="confirmLogin()"></app-login-form>
-      } @else {
+  <div class="profile-icon-div">
+    @if (!isAuthenticated()) {
+    <app-login-form (loginSuccessfull)="confirmLogin()"></app-login-form>
+    } @else {
+    <div class="user-menu-container">
+      <div class="menu-entry">
+        <a [routerLink]="['/user']">
+          <span class="material-symbols-outlined list-icon">
+            manage_accounts
+          </span>
+          <div class="entry-text"><span>Profile</span></div>
+        </a>
+      </div>
 
-        <div class="user-menu-container">
+      <hr />
 
-          <div class="menu-entry">
-            <a [routerLink]="['/user']">
-              <span class="material-symbols-outlined list-icon">
-                manage_accounts
-              </span>
-              <div class="entry-text"><span>Profile</span></div>
-            </a>
+      <div class="menu-entry">
+        <a [routerLink]="['books/publish-listing']">
+          <div class="msg-icon-cnt">
+            <span class="material-symbols-outlined list-icon"> list_alt_add </span>
           </div>
-
-          <hr />
-
-          <div class="menu-entry">
-            <a [routerLink]="['/messages']">
-              <span class="material-symbols-outlined list-icon"> chat </span>
-              <div class="entry-text"><span>Messages</span></div>
-            </a>
+          <div class="entry-text msg">
+            <span>Create Listing</span>
           </div>
+        </a>
+      </div>
 
-          <hr />
 
-          <div class="logout-container">
+      <hr />
 
-            <button class="logout-button" (click)="logOut()">
-              <span class="material-symbols-outlined logout-icon"> logout </span>
-              <span class="logout-text"> Logout</span>
-            </button>
-
+      <div class="menu-entry">
+        <a [routerLink]="['/messages']">
+          <div class="msg-icon-cnt">
+            <span class="material-symbols-outlined list-icon"> chat </span>
+            <div [ngClass]="{ hidden: !(notification$ | async) }" class="notification"></div>
           </div>
+          <div class="entry-text msg">
+            <span>Messages</span>
+          </div>
+        </a>
+      </div>
 
-        </div>
-      }
+      <hr />
+
+      <div class="menu-entry">
+        <a [routerLink]="['/user/listings']">
+          <div class="msg-icon-cnt">
+            <span class="material-symbols-outlined list-icon"> format_list_bulleted </span>
+          </div>
+          <div class="entry-text msg">
+            <span>My Listings</span>
+          </div>
+        </a>
+      </div>
+
+      <hr />
+
+      <div class="logout-container">
+        <button class="logout-button" (click)="logOut()">
+          <span class="material-symbols-outlined logout-icon">
+            logout
+          </span>
+          <span class="logout-text"> Logout</span>
+        </button>
+      </div>
     </div>
+    }
+  </div>
   }
 </div>

@@ -29,6 +29,7 @@ export class BookDetailsComponent implements OnDestroy {
   public publisherInfo!: UserDTO;
   public amount = '';
   public timeLeft = '';
+  public isAuthenticated: boolean = false;
 
   public chatEmptyState = "There are no comments yet.\n Be the first to leave one."
 
@@ -49,6 +50,7 @@ export class BookDetailsComponent implements OnDestroy {
     this.listingId = this.route.snapshot.paramMap.get('id')!;
     this.retrieveInfo();
     this.listenToBidUpdate();
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 
   retrieveInfo() {

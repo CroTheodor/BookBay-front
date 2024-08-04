@@ -1,11 +1,9 @@
 import {
   Component,
-  ElementRef,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { Chatroom, MessageDTO } from '../../interfaces/chat.interface';
 import { UserMessageComponent } from '../user-message/user-message.component';
@@ -35,6 +33,9 @@ export class ChatComponent implements OnInit, OnChanges {
   emptyStateText: string = 'No messages found!';
 
   @Input()
+  label: string = "Write a message";
+
+  @Input()
   chatroomId?: string;
 
   @Input()
@@ -45,6 +46,8 @@ export class ChatComponent implements OnInit, OnChanges {
 
   inputText: string = '';
 
+  public isAuthenticated: boolean = false;
+
   private subscriptions: Subscription[] = [];
 
   private oldMessagesSubscription: Subscription | null = null;
@@ -53,7 +56,9 @@ export class ChatComponent implements OnInit, OnChanges {
   constructor(
     private socketService: SocketService,
     private authService: AuthService,
-  ) { }
+  ) {
+    this.isAuthenticated = this.authService.isAuthenticated();
+  }
 
   ngOnInit(): void {
     this.chatroom = {
@@ -61,7 +66,7 @@ export class ChatComponent implements OnInit, OnChanges {
       messages: [],
     };
     if (this.chatroomId) {
-      if(!this.privateMessage) this.socketService.joinPublicRoom(this.chatroom._id!);
+      if(!this.privateMessage) this.socketService.joinPublicRoom(this.chatroomId);
       this.privateMessage
         ? this.retrieveOldPrivateMessages()
         : this.retrieveOldComments();

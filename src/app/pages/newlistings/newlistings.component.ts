@@ -84,7 +84,6 @@ export class NewlistingsComponent {
 
   croppingConfirmed(img: string) {
     if (img) {
-      console.log(img);
       this.croppedImage = img;
     }
   }
@@ -95,14 +94,12 @@ export class NewlistingsComponent {
 
   preparePayload(): void {
     this.listingForm.get('book')?.get('cover_img')?.setValue(this.croppedImage);
-    console.log(this.listingForm.value);
     this.listingService.createListing(this.listingForm.value)
       .pipe(
         catchError(err=>of(err))
       )
       .subscribe(
     (response)=>{
-        console.log(response)
         if(response instanceof HttpErrorResponse){
           if(response.status === 401){
             this.authService.logOut();

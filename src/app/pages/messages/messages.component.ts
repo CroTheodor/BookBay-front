@@ -33,13 +33,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
   constructor(
     private socket: SocketService,
     private auth: AuthService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.tempChatroom = this.socket.getTempChatroom();
     this.tempChatroomId = this.socket.redirectChatroomId;
     this.retrieveChatrooms();
     this.listenForNewRooms();
+    this.listenForNewNotifications();
   }
 
   public retrieveChatrooms() {
@@ -66,7 +67,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
       });
       this.selectTab(index);
     }
-    console.log(this.userChatrooms);
   }
 
   public listenForNewRooms() {
@@ -118,7 +118,35 @@ export class MessagesComponent implements OnInit, OnDestroy {
       chatroom.selected = false;
     });
     this.userChatrooms.at(index)!.selected = true;
+    this.markChatroomAsRead(this.userChatrooms.at(index)!.chatroom.chatroomId);
     this.selectedChatroom = this.userChatrooms.at(index)!.chatroom;
+  }
+
+  private listenForNewNotifications() {
+    this.subscriptions.push(
+      this.socket.getNotificationObservable().subscribe((id: string | null) => {
+        if (id) {
+          this.userChatrooms.forEach((userChatroom: UserChatroom) => {
+            if (userChatroom.chatroom.chatroomId === id) {
+              if(userChatroom.selected){
+                this.markChatroomAsRead(id);
+              } else {
+                userChatroom.newMessage = true;
+              }
+            }
+          });
+        }
+      }),
+    );
+  }
+
+  private markChatroomAsRead(id: string) {
+    this.userChatrooms.forEach((userChatroom: UserChatroom) => {
+      if (userChatroom.chatroom.chatroomId === id) {
+        userChatroom.newMessage = false;
+      }
+    });
+    this.socket.removeNotification(id);
   }
 
   ngOnDestroy() {

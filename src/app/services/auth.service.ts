@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, WritableSignal, computed, signal } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
-import { RegisterDTO, UserDTO } from '../interfaces/user.model';
+import { E_ROLE, RegisterDTO, UserDTO } from '../interfaces/user.model';
 import { jwtDecode } from 'jwt-decode';
 
 export enum AUTH_EVENT {
@@ -109,5 +109,12 @@ export class AuthService {
 
   public isUsersId(id: string) {
     return this.userInfo()?._id === id;
+  }
+
+  public isModerator(){
+    const userInfo = this.userInfo();
+    if(!userInfo)
+      return false;
+    return userInfo.roles.includes(E_ROLE.MODRATOR);
   }
 }

@@ -43,10 +43,19 @@
             max-width: 400px;
             display: flex;
             flex-direction: column;
+            align-items: start;
+            justify-content: flex-start;
 
             .property {
               font-weight: 600;
               color: gray;
+            }
+            button{
+              width: 100%;
+              text-align: start;
+              font-size: 1em;
+              padding-left: 24px;
+              cursor:pointer;
             }
           }
         }
@@ -139,6 +148,7 @@ button[disabled] {
 }
 
 .chat-window {
+  max-height: 420px;
   .full-width {
     width: 100%;
   }

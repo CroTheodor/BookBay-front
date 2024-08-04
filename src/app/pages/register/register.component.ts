@@ -83,10 +83,6 @@ export class RegisterComponent {
     );
   }
 
-  print() {
-    console.log(this.registerForm);
-  }
-
   public submitRegister() {
     if (this.registerForm.valid) {
       this.apiLoading = true;

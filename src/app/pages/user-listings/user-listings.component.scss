@@ -1,0 +1,32 @@
+@import '../../../styles.scss';
+h1{
+  text-align: center;
+  padding-top: 22px;
+}
+
+.user-listing-container{
+  padding:14px;
+
+  .sections{
+    display: flex;
+    justify-content: center;
+    button{
+      font-size: 1.2em;
+      padding: 24px 74px;
+      border-bottom: 2px solid #CBCBCB;
+      cursor:pointer;
+    }
+    .selected{
+      border-bottom:2px solid $base-color;
+    }
+  }
+
+  .inner-container {
+    padding: 8px;
+    .list-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+  }
+}
