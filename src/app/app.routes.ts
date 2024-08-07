@@ -12,6 +12,8 @@ import { NewlistingsComponent } from './pages/newlistings/newlistings.component'
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
 import { AuthGuard } from './guards/authguard.guard';
 import { ModeratorGuard } from './guards/moderator.guard';
+import { ListingUpdateComponent } from './pages/user-listings/listing-update/listing-update.component';
+import { CompletePaymentComponent } from './pages/complete-payment/complete-payment.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -22,6 +24,8 @@ export const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'user', component: ProfileComponent, canActivate:[ AuthGuard ] },
   { path: 'user/listings', component: UserListingsComponent, canActivate:[ AuthGuard ] },
+  { path: 'user/listings/pay/:id', component: CompletePaymentComponent, canActivate:[ AuthGuard ] },
+  { path: 'listings/edit/:id', component: ListingUpdateComponent, canActivate:[ AuthGuard ] },
   { path: 'messages', component: MessagesComponent, canActivate:[ AuthGuard ] },
   { path: 'statistics', component: StatisticsComponent, canActivate:[ AuthGuard, ModeratorGuard ] },
   { path: '**', component: HomeComponent },

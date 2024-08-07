@@ -1,0 +1,32 @@
+@if (listing) {
+<div class="container">
+  <div class="header-card">
+    <app-listing-card [listingInfo]="this.listing!"></app-listing-card>
+  </div>
+  <div class="header-text">
+    <h1>Payment details</h1>
+  </div>
+  @if (!this.listing.paymentCompleted && !excededDeadline) {
+  <div class="info">
+    <span>Please check the delivery info before completing the payment</span>
+    <app-delivery-info-card [info]="this.userInfo.shipmentInfo!" [save]="false"
+      (shipmentInfoChage)="handleChange($event)"></app-delivery-info-card>
+  </div>
+  <div class="payment-completion">
+    <div class="disclaimer">
+      <span>*The payment must be completed before</span>
+      <span>{{ this.paymentDeadline | date: "HH:mm dd-MM-YYY" }}</span>
+    </div>
+    <button (click)="confirmPayment()">Complete payment</button>
+  </div>
+  } @else if (!this.listing.paymentCompleted && excededDeadline) {
+    <div class="failed-payment">
+      <span>You have failed to pay before the deadline.</span>
+    </div>
+  } @else {
+  <div class="successful-payment">
+    <span>The payment for this book has already been completed.</span>
+  </div>
+  }
+</div>
+}

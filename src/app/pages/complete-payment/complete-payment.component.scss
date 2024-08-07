@@ -1,0 +1,66 @@
+@import "../../../styles.scss";
+
+.container {
+  padding: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .header-text {
+    padding-top: 18px;
+  }
+
+  .info {
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .payment-completion {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .disclaimer {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2px;
+      align-items: center;
+    }
+
+    span {
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    button {
+      font-size: 1.1em;
+      background-color: $base-color;
+      padding: 12px 24px;
+      color: white;
+      border-radius: 4px;
+    }
+  }
+
+  .successful-payment{
+    padding: 12px 24px;
+    border-radius:12px;
+    background-color: red;
+    span{
+      font-size: 1.4em;
+    }
+  }
+
+  .successful-payment{
+    padding: 12px 24px;
+    border-radius:12px;
+    background-color: green;
+    span{
+      font-size: 1.4em;
+    }
+  }
+}

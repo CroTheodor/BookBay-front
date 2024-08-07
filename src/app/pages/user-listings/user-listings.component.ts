@@ -119,7 +119,7 @@ export class UserListingsComponent implements OnInit{
     };
 
     this.listingService
-      .getUserExpiredListings(paginator)
+      .getUserWonListings(paginator)
       .pipe(catchError((err) => of(err)))
       .subscribe((response: HttpResponse<PaginatedResponse<ListingDTO>>) => {
         this.lengthWon= response.response.totalItems;
@@ -130,6 +130,14 @@ export class UserListingsComponent implements OnInit{
 
   goToDetails(id: string) {
     this.router.navigate([`books/details/${id}`]);
+  }
+
+  updateListing(id: string) {
+    this.router.navigate([`listings/edit/${id}`]);
+  }
+
+  goToPayment(id: string) {
+    this.router.navigate([`user/listings/pay/${id}`]);
   }
 
   public setTab(i: number){

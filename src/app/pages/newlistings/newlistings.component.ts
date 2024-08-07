@@ -32,6 +32,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     );
   }
 }
+
 @Component({
   selector: 'app-newlistings',
   standalone: true,
@@ -105,8 +106,13 @@ export class NewlistingsComponent {
             this.authService.logOut();
             this.router.navigate(['login']);
           }
-          //TODO: add handling of other instances
-        }
+          else {
+            alert("somethingWentWrong")
+          }
+        } else {
+            console.log(response);
+            this.router.navigate([`books/details/${response.response._id}`]);
+          }
       })
   }
 }

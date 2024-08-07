@@ -40,7 +40,7 @@
           <div class="desc-row">
             <span class="property">Listed by:</span>
             <span>{{ publisherInfo.name }} {{ publisherInfo.lastname }}</span>
-            @if(this.isAuthenticated){
+            @if(this.isAuthenticated && !this.isUsersBook()){
               <button (click)="contactOwner()">(contact)</button>
             }
           </div>
@@ -90,8 +90,8 @@
       </div>
       } @else {
       <div class="auction-ended">
-        @if (
-        listingInfo && listingInfo.minBid! <= listingInfo.currentBid! ) { <span>This auction has been successfully
+        @if ( listingInfo && listingInfo.minBid! <= listingInfo.currentBid! )
+          { <span>This auction has been successfully
           concluded.</span>
           } @else {
           <span>The auction has concluded, but the minimum target ({{
@@ -106,7 +106,7 @@
     <h3>Comments</h3>
   </div>
   <div class="chat-window">
-    <app-chat [chatroomId]="listingInfo._id" [emptyStateText]="chatEmptyState" [label]="'Leave a comment'"></app-chat>
+    <app-chat [displayInput]="!this.auctionFinished" [chatroomId]="listingInfo._id" [emptyStateText]="chatEmptyState" [label]="'Leave a comment'"></app-chat>
   </div>
 </div>
 }

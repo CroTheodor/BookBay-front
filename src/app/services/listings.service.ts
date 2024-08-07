@@ -20,6 +20,8 @@ export class ListingsService {
     active: () => `${this.completeUrl}/active`,
     userActive: ()=>`${this.completeUrl}/user/active`,
     userExpired: ()=>`${this.completeUrl}/user/expired`,
+    userWon: ()=>`${this.completeUrl}/user/won`,
+    completePayment: (id: string)=>`${this.ROUTES.getById(id)}/payment-complete`
   };
 
   private url = 'http://localhost:3500';
@@ -42,6 +44,14 @@ export class ListingsService {
 
   public createListing(listing: ListingDTO){
     return this.http.post(this.ROUTES.getAll(), listing ).pipe(
+      tap((res)=>{
+        return JSON.parse(JSON.stringify(res));
+      })
+    )
+  }
+
+  public updateListing(listingId: string, listing: ListingDTO){
+    return this.http.put(this.ROUTES.getById(listingId), listing ).pipe(
       tap((res)=>{
         return JSON.parse(JSON.stringify(res));
       })
@@ -76,5 +86,18 @@ export class ListingsService {
         return JSON.parse(JSON.stringify(res));
       }),
     );
+  }
+
+  public getUserWonListings(pagination: PaginatedRequest){
+    const params = generateParams(pagination);
+    return this.http.get<HttpResponse<PaginatedResponse<ListingDTO>>>(this.ROUTES.userWon(), { params }).pipe(
+      tap((res) => {
+        return JSON.parse(JSON.stringify(res));
+      }),
+    );
+  }
+
+  public completePayment(id: string){
+    return this.http.post(this.ROUTES.completePayment(id), {})
   }
 }

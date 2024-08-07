@@ -16,7 +16,7 @@
   <div class="inner-container">
     <div class="list-container">
       @for (listing of activeListings; track listing) {
-      <button (click)="goToDetails(listing._id)">
+      <button (click)="updateListing(listing._id)">
         <app-listing-card [listingInfo]="listing"></app-listing-card>
       </button>
       }
@@ -44,7 +44,7 @@
   <div class="inner-container">
     <div class="list-container">
       @for (listing of wonListings; track listing) {
-      <button (click)="goToDetails(listing._id)">
+      <button (click)="goToPayment(listing._id)">
         <app-listing-card [listingInfo]="listing"></app-listing-card>
       </button>
       }

@@ -1,0 +1,139 @@
+<div class="container">
+  <button (click)="goToDetails()">
+    <app-listing-card [listingInfo]="listing!"></app-listing-card>
+  </button>
+  <div class="page-title">
+    <h1>Update listing details</h1>
+  </div>
+<div class="new-listing-container">
+  <div class="img-control">
+    @if (croppedImage) {
+      <div class="img-container">
+        <img [src]="croppedImage"/>
+        <button (click)="clearImg()" class="close-button">
+          <span class="material-symbols-outlined"> close </span>
+        </button>
+      </div>
+    } @else {
+      <div class="placeholder-container">
+        <span class="material-symbols-outlined placeholder-icon"> image </span>
+      </div>
+    }
+    <input
+      type="file"
+      id="imgSelector"
+      accept="image/*"
+      (change)="fileChangeEvent($event)"
+    />
+    <label for="imgSelector" class="img-sel-button">Select image</label>
+  </div>
+  <form class="listing-form" [formGroup]="listingForm">
+    <div formGroupName="book">
+      <h3>Book description</h3>
+      <div class="title-section">
+        <!-- TITLE -->
+        <mat-form-field class="title-field">
+          <mat-label>Title</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="title"
+            [errorStateMatcher]="matcher"
+            placeholder="Ex. Book title"
+          />
+          @if (listingForm.get("book")?.get("title")?.hasError("required")) {
+            <mat-error>Title field is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="author-section">
+        <!-- AUTHOR -->
+        <mat-form-field class="author-field">
+          <mat-label>Author</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="author"
+            [errorStateMatcher]="matcher"
+            placeholder="Ex. John Doe"
+          />
+          @if (listingForm.get("book")?.get("author")?.hasError("required")) {
+            <mat-error>Author field is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="book-optional">
+        <!-- COURSE -->
+        <mat-form-field class="form-field">
+          <mat-label>Course</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="course"
+            [errorStateMatcher]="matcher"
+            placeholder="Ex. Math for dummies"
+          />
+        </mat-form-field>
+
+        <!-- PUBLISHER -->
+        <mat-form-field class="form-field">
+          <mat-label>Publisher</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="publisher"
+            [errorStateMatcher]="matcher"
+            placeholder="Ex. Publisher name"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="listing-info">
+      <h3>Listing info</h3>
+      <div class="listing-mandatory">
+        <!-- MIN BID -->
+        <mat-form-field class="form-field">
+          <mat-label>Min bid</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="minBid"
+            [errorStateMatcher]="matcher"
+            placeholder="Ex. 14.52"
+          />
+          @if (listingForm.get("minBid")?.hasError("required")) {
+            <mat-error>Min bid field is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <!-- AUCTIUON DURATION -->
+        <mat-form-field class="form-field">
+          <mat-label>Auction duration (h)</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="auctionDuration"
+            [errorStateMatcher]="matcher"
+            placeholder="Ex. 24"
+          />
+          @if (listingForm.get("auctionDuration")?.hasError("required")) {
+            <mat-error
+              >You have to indicate the amount of time you want your bid to
+              run</mat-error
+            >
+          }
+        </mat-form-field>
+
+      </div>
+    </div>
+    <button (click)="preparePayload()" [disabled]="!this.listingForm.valid || !this.listingForm.dirty" class="submit-button">UPDATE</button>
+  </form>
+</div>
+
+<app-cropper-dialog
+  #cropperDialog
+  [fileChangedEvent]="imageChangedEvent"
+  (onCrop)="croppingConfirmed($event)"
+></app-cropper-dialog>
+</div>
+

@@ -117,6 +117,7 @@ export class BookDetailsComponent implements OnDestroy {
       if (hours <= 0 && minutes <= 0 && seconds <= 0) {
         clearTimeout(this.timeoutHandler);
         this.auctionFinished = true;
+        this.chatEmptyState = "This auction had no comments.";
         return;
       }
       this.timeoutHandler = setTimeout(() => this.calculateTime(), 1000);

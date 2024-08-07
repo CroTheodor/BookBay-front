@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -29,6 +29,12 @@ export class DeliveryInfoCardComponent implements OnChanges {
 
   @Input()
   edit: boolean = false;
+
+  @Input()
+  save: boolean = true;
+
+  @Output()
+  shipmentInfoChage: EventEmitter<ShipmentInfoDTO> = new EventEmitter<ShipmentInfoDTO>();
 
   deliveryInfo: FormGroup;
 
@@ -105,7 +111,11 @@ export class DeliveryInfoCardComponent implements OnChanges {
       )
   }
 
-  public save(){
+  public saveInfo(){
+    if(!this.save){
+      this.shipmentInfoChage.emit(this.deliveryInfo.value);
+      return;
+    }
     if(this.deliveryInfo.valid){
       this.userService.updateUser(this.authService.getUserInfo()?._id!,{shipmentInfo: this.deliveryInfo.value} ).subscribe(
 

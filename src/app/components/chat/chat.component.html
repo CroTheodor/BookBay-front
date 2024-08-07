@@ -16,7 +16,7 @@
     }
   </div>
   }
-  @if (this.isAuthenticated) {
+  @if (this.isAuthenticated && this.displayInput) {
   <div class="input-container">
     <mat-form-field class="chat-input">
       <mat-label>{{this.label}}</mat-label>

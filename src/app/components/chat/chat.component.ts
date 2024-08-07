@@ -44,6 +44,9 @@ export class ChatComponent implements OnInit, OnChanges {
   @Input()
   chatroom: Chatroom | null = null;
 
+  @Input()
+  displayInput: boolean = true;
+
   inputText: string = '';
 
   public isAuthenticated: boolean = false;
