@@ -1,0 +1,81 @@
+<div class="container">
+@if(user){
+  <form class="edit-form" [formGroup]="editForm">
+    <!-- firstname -->
+    <mat-form-field class="form-field">
+      <mat-label>Name</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="name"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. John"
+      />
+      @if (editForm.get("name")?.hasError("required")) {
+        <mat-error>Name is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <!-- lastname -->
+    <mat-form-field class="form-field">
+      <mat-label>Lastname</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="lastname"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. Doe"
+      />
+      @if (editForm.get("lastname")?.hasError("required")) {
+        <mat-error>Lastname is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <!-- email -->
+    <mat-form-field class="form-field">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com"
+      />
+
+      @if (
+        editForm.get("email")?.hasError("email") &&
+        !editForm.get("email")?.hasError("required")
+      ) {
+        <mat-error>Please enter a valid email address</mat-error>
+      }
+      @if (editForm.get("email")?.hasError("required")) {
+        <mat-error>Email is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <div class="error-container">
+      @if (errorMsg) {
+        <span class="error-text">{{ errorMsg }}</span>
+      }
+    </div>
+
+    <div class="btn-container">
+      <button
+        mat-flat-button
+        (click)="submitEdit()"
+        [disabled]="!editForm.valid || apiLoading"
+        color="primary"
+      >
+        <div class="btn-content">
+          @if (apiLoading) {
+            <mat-icon>
+              <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
+            </mat-icon>
+          }
+          Submit
+        </div>
+      </button>
+    </div>
+  </form>
+  }
+</div>

@@ -1,0 +1,211 @@
+@import "../../../styles.scss";
+
+.container {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .tabs {
+    padding: 12px;
+
+    button {
+      padding: 5px 124px;
+      font-size: 1.5em;
+      border-bottom: 2px solid #cbcbcb;
+      cursor: pointer;
+    }
+
+    .selected {
+      border-bottom: 2px solid $base-color;
+    }
+  }
+
+  .tab-content {
+    padding: 44px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .statistics {
+      width: 80%;
+
+      table,
+      th,
+      td {
+        border: 2px solid $base-color;
+        border-collapse: collapse;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      td {
+        width: 50%;
+        font-size: 1.4em;
+        padding: 5px;
+      }
+    }
+
+    .users {
+      width: 100%;
+      font-size: 1.2em;
+
+      .outer-filter-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        width: 100%;
+
+        .user-create {
+          height: 56px;
+          width: 140px;
+          background-color: $base-color;
+          color: white;
+          border-radius: 4px;
+        }
+
+        .filter-container {
+          display: flex;
+
+          ::ng-deep .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+            background: $base-color;
+            color: white;
+          }
+
+          .white-label {
+            color: white;
+            text-align: center;
+          }
+
+          ::ng-deep .mat-mdc-select-value-text {
+            color: white;
+          }
+
+          .apply-filter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $base-color;
+            width: 140px;
+            border-radius: 0px 4px 4px 0px;
+            height: 56px;
+
+            button {
+              color: white;
+              width: 100%;
+              height: 100%;
+              cursor: pointer;
+            }
+
+            button:disabled {
+              color: white;
+              background-color: #cbcbcb;
+            }
+          }
+        }
+      }
+
+      td,
+      th {
+        font-size: 1.4em;
+        border: 1px solid $base-color;
+        border-collapse: collapse;
+      }
+
+      th {
+        background-color: #e9e9e9;
+      }
+
+      tr:nth-child(even) {
+        background-color: #e9e9e9;
+      }
+
+      .left-border {
+        border-radius: 4px 0px 0px 4px;
+      }
+
+      .right-border {
+        border-radius: 0px 4px 4px 0px;
+      }
+
+      .btn {
+        padding: 8px;
+        margin: 8px;
+        display: flex;
+        justify-content: center;
+        border-radius: 4px;
+        cursor: pointer;
+
+        span {
+          font-size: 2.2em;
+          font-weight: 600;
+          color: white;
+        }
+      }
+
+      button:disabled {
+        background-color: #cbcbcb;
+      }
+
+      .edit {
+        background-color: $base-color;
+      }
+
+      .delete {
+        background-color: darkred;
+      }
+    }
+  }
+}
+
+.user-edit-dialog {
+  position: relative;
+
+  button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+.confirm-dialog {
+  background-color: white;
+  width: 450px;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-radius: 4px;
+
+  .text {
+    padding: 24px;
+    text-align: center;
+    font-size: 1.4em;
+  }
+
+  .button-container {
+    padding: 28px;
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+
+    button {
+      background-color: $base-color;
+      color: white;
+      min-width: 72px;
+      padding: 12px 24px;
+      border-radius: 4px;
+    }
+  }
+}
+
+::ng-deep .mat-elevation-z8,
+.mat-mdc-elevation-specific.mat-elevation-z8 {
+  box-shadow: none;
+}
+

@@ -1,0 +1,151 @@
+<div class="container">
+  <div class="tabs">
+    <button (click)="switchTab(0)" [ngClass]="{ selected: selectedTab === 0 }">
+      Statistics
+    </button>
+    <button (click)="switchTab(1)" [ngClass]="{ selected: selectedTab === 1 }">
+      Users
+    </button>
+    <button (click)="switchTab(2)" [ngClass]="{ selected: selectedTab === 2 }">
+      Books
+    </button>
+  </div>
+  <div class="tab-content">
+    @switch (this.selectedTab) {
+      @case (0) {
+        <ng-container *ngTemplateOutlet="statisticsTemplate"></ng-container>
+      }
+      @case (1) {
+        <ng-container *ngTemplateOutlet="usersTemplate"></ng-container>
+      }
+      @case (2) {
+        <ng-container *ngTemplateOutlet="booksTemplate"></ng-container>
+      }
+    }
+  </div>
+</div>
+
+<ng-template #statisticsTemplate>
+  <div class="statistics">
+    <table>
+      <tr>
+        <td>Registered users</td>
+        <td>{{ this.statistics?.totalUsers }}</td>
+      </tr>
+      <tr>
+        <td>Total listings</td>
+        <td>{{ this.statistics?.totalListings }}</td>
+      </tr>
+      <tr>
+        <td>Active listings</td>
+        <td>{{ this.statistics?.activeListings }}</td>
+      </tr>
+      <tr>
+        <td>Ended without bids</td>
+        <td>{{ this.statistics?.noBidsListings }}</td>
+      </tr>
+      <tr>
+        <td>Awaiting payment</td>
+        <td>{{this.statistics?.awaitingPayment}}</td>
+      </tr>
+      <tr>
+        <td>Payment not concluded</td>
+        <td>{{ this.statistics?.bidsNoPaymentListings }}</td>
+      </tr>
+      <tr>
+        <td>Successful listings</td>
+        <td>{{ this.statistics?.successufListings }}</td>
+      </tr>
+    </table>
+  </div>
+</ng-template>
+
+<ng-template #usersTemplate>
+  <div class="users">
+    <div class="outer-filter-container">
+      <div class="filter-container">
+        <mat-form-field class="filter-selector">
+          <mat-label class="white-label">Select Filter</mat-label>
+          <mat-select
+            [formControl]="userSearchFilter"
+            (valueChange)="userSearchFilterChange($event)"
+          >
+            <mat-option [value]="'-'">-</mat-option>
+            <mat-option [value]="'id'">ID</mat-option>
+            <mat-option [value]="'email'">Email</mat-option>
+            <mat-option [value]="'name'">Name</mat-option>
+            <mat-option [value]="'lastname'">Lastname</mat-option>
+            <mat-option [value]="'role'">Role</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="filter-input">
+          <mat-label>Filter</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControl]="userSearchText"
+            placeholder=""
+            [disabled]="true"
+          />
+        </mat-form-field>
+        <div class="apply-filter">
+          <button
+            (click)="applyUserFilter()"
+            [disabled]="!userSearchText.valid"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+      <button (click)="createUser()" class="user-create">Add User</button>
+    </div>
+    <app-table
+      [actions]="userActions"
+      [columns]="userColumns"
+      [data]="users"
+      (paginatorEvent)="handlePageUsers($event)"
+    ></app-table>
+  </div>
+</ng-template>
+
+<ng-template #booksTemplate>
+  <div class="books">
+    <app-table
+      [columns]="listingColumns"
+      [data]="activeListings"
+      [actions]="listingActions"
+    ></app-table>
+  </div>
+</ng-template>
+
+<app-dialog #editDialog>
+  <div class="user-edit-dialog">
+    <app-user-edit-form
+      [user]="selectedUser"
+      (success)="editSuccess($event)"
+    ></app-user-edit-form>
+    <button (click)="closeEditDialog()">
+      <span class="material-symbols-outlined"> close </span>
+    </button>
+  </div>
+</app-dialog>
+
+<app-dialog #confirmDeleteUserDialog>
+  <div class="confirm-dialog">
+    <span class="text">Confirm the action that you are about to perform.</span>
+    <div class="button-container">
+      <button (click)="closeConfirmDialog()">No</button>
+      <button (click)="deleteUser()">Yes</button>
+    </div>
+  </div>
+</app-dialog>
+
+<app-dialog #confirmDeleteListingDialog>
+  <div class="confirm-dialog">
+    <span class="text">Confirm the action that you are about to perform.</span>
+    <div class="button-container">
+      <button (click)="closeConfirmDialogListing()">No</button>
+      <button (click)="deleteListing()">Yes</button>
+    </div>
+  </div>
+</app-dialog>

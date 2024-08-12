@@ -3,35 +3,18 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  FormGroupDirective,
-  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { CropperDialogComponent } from '../../components/cropper-dialog/cropper-dialog.component';
 import { MatInputModule } from '@angular/material/input';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { ListingsService } from '../../services/listings.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null,
-  ): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
-  }
-}
+import { MyErrorStateMatcher } from '../../utils/util-funs';
 
 @Component({
   selector: 'app-newlistings',
@@ -110,7 +93,6 @@ export class NewlistingsComponent {
             alert("somethingWentWrong")
           }
         } else {
-            console.log(response);
             this.router.navigate([`books/details/${response.response._id}`]);
           }
       })

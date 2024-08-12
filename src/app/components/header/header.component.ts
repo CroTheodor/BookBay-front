@@ -15,10 +15,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent {
 
-  public isModerator: boolean = false;
-
   constructor(private auth: AuthService){
-    this.isModerator = this.auth.isModerator();
+  }
+
+  public get isModerator(){
+    return this.auth.isModerator();
   }
 
 }

@@ -46,7 +46,12 @@ export class AuthManagerComponent implements OnInit {
 
   confirmLogin() {
     this.displayProfile = false;
-    this.router.navigate([""]);
+    const authInfo = this.authService.getUserInfo()!;
+    if(authInfo.passwordReset){
+      this.router.navigate(['/change-password']);
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
   logOut(){

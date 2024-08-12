@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, WritableSignal, computed, signal } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { E_ROLE, RegisterDTO, UserDTO } from '../interfaces/user.model';
 import { jwtDecode } from 'jwt-decode';
+import { extractRole } from '../utils/util-funs';
 
 export enum AUTH_EVENT {
   login = 'login',
@@ -17,14 +18,19 @@ export class AuthService {
   private userInfo = computed(() => {
     if (this.token()) {
       const decodedToken: UserDTO = jwtDecode(this.token()!);
+      decodedToken.displayedRole = extractRole(decodedToken.roles);
       return decodedToken;
     }
     return null;
   });
 
+  //Needed for change password logic
+  private tokenTemp: string | undefined;
+
   private readonly routes = {
     login: () => `${this.url}/${this.api}/login`,
     register: () => `${this.url}/${this.api}/register`,
+    registerMod: () => `${this.url}/${this.api}/register/moderator`,
     changePassword: () => `${this.url}/${this.api}/change-password`,
   };
 
@@ -75,24 +81,41 @@ export class AuthService {
     );
   }
 
-  public changePassword(newPassword: string) {
+  public registerMod(info: RegisterDTO) {
     const options = {
       headers: new HttpHeaders({
         'cache-control': 'no-cache',
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.put(
-      this.routes.changePassword(),
-      { password: newPassword },
-      options,
-    );
+
+    return this.http.post(this.routes.registerMod(), info, options);
+  }
+
+  public finalizePasswordChangeProcedure(newPassword: string) {
+    if (!this.tokenTemp) {
+      return;
+    }
+    this.token.set(this.tokenTemp!);
+    const options = {
+      headers: new HttpHeaders({
+        'cache-control': 'no-cache',
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http
+      .put(this.routes.changePassword(), { password: newPassword }, options)
+      .pipe(
+        tap(() => {
+          this.token.set(null);
+        }),
+      );
   }
 
   public logOut() {
     localStorage.removeItem('authToken');
     this.token.set(null);
-    this.authEvents.next(AUTH_EVENT.logout)
+    this.authEvents.next(AUTH_EVENT.logout);
   }
 
   public getAuthToken(): string | null {
@@ -111,10 +134,21 @@ export class AuthService {
     return this.userInfo()?._id === id;
   }
 
-  public isModerator(){
+  public isModerator() {
     const userInfo = this.userInfo();
-    if(!userInfo)
-      return false;
+    if (!userInfo) return false;
     return userInfo.roles.includes(E_ROLE.MODRATOR);
+  }
+
+  public isAdministrator() {
+    const userInfo = this.userInfo();
+    if (!userInfo) return false;
+    return userInfo.roles.includes(E_ROLE.ADMINISTRATOR);
+  }
+
+  public initPasswordChangeProcedure() {
+    this.tokenTemp = this.token() ?? undefined;
+    this.token.set(null);
+    localStorage.removeItem('authToken');
   }
 }

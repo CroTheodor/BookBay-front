@@ -16,14 +16,15 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class HomeComponent {
   public latestListings: ListingDTO[] = [];
+  public soonToEnd: ListingDTO[] = [];
 
   constructor(
     private authService: AuthService,
     private listingService: ListingsService,
     private router: Router
   ) {
-    //TODO: add query for soon to end
     this.getLatest();
+    this.getSoonToEnd();
   }
 
   isAuthenticated(): boolean {
@@ -40,7 +41,12 @@ export class HomeComponent {
   }
 
   public getSoonToEnd(){
-
+    this.listingService.getSoonToExpire()
+      .subscribe(
+        (res: any)=>{
+          this.soonToEnd = res.response;
+        }
+      )
   }
 
   public goToListing(id: string){

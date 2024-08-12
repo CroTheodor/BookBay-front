@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ListingDTO, ListingRequestFilter } from '../interfaces/listing.model';
+import { ListingDTO, ListingRequestFilter, StatisticsDTO } from '../interfaces/listing.model';
 import { generateParams } from '../utils/util-funs';
 import {
   HttpResponse,
@@ -21,7 +21,9 @@ export class ListingsService {
     userActive: ()=>`${this.completeUrl}/user/active`,
     userExpired: ()=>`${this.completeUrl}/user/expired`,
     userWon: ()=>`${this.completeUrl}/user/won`,
-    completePayment: (id: string)=>`${this.ROUTES.getById(id)}/payment-complete`
+    completePayment: (id: string)=>`${this.ROUTES.getById(id)}/payment-complete`,
+    statistics:()=>`${this.completeUrl}/statistics/all`,
+    soonToExpire:()=>`${this.completeUrl}/soon-to-expire`,
   };
 
   private url = 'http://localhost:3500';
@@ -40,6 +42,10 @@ export class ListingsService {
         return JSON.parse(JSON.stringify(res));
       }),
     );
+  }
+
+  public getSoonToExpire(){
+    return this.http.get(this.ROUTES.soonToExpire(), {});
   }
 
   public createListing(listing: ListingDTO){
@@ -88,7 +94,7 @@ export class ListingsService {
     );
   }
 
-  public getUserWonListings(pagination: PaginatedRequest){
+  public getUserWonListings(pagination: PaginatedRequest): Observable<HttpResponse<PaginatedResponse<ListingDTO>>>{
     const params = generateParams(pagination);
     return this.http.get<HttpResponse<PaginatedResponse<ListingDTO>>>(this.ROUTES.userWon(), { params }).pipe(
       tap((res) => {
@@ -99,5 +105,17 @@ export class ListingsService {
 
   public completePayment(id: string){
     return this.http.post(this.ROUTES.completePayment(id), {})
+  }
+
+  public getStatistics():Observable<HttpResponse<StatisticsDTO>>{
+    return this.http.get<HttpResponse<StatisticsDTO>>(this.ROUTES.statistics()).pipe(
+      tap((res)=>{
+        return JSON.parse(JSON.stringify(res));
+      })
+    )
+  }
+
+  public delete(id:string){
+    return this.http.delete(this.ROUTES.getById(id));
   }
 }

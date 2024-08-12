@@ -10,14 +10,16 @@
         }
       </div>
     }
+    @if (soonToEnd && soonToEnd.length > 0){
       <div class="book-preview">
         <div class="col-info">
-          <span>Soon to end</span>
+          <span>First to end</span>
         </div>
-        @for (listing of latestListings; track listing) {
+        @for (listing of soonToEnd; track listing) {
           <app-listing-card [listingInfo]="listing"></app-listing-card>
         }
       </div>
+    }
   </div>
   <div class="action-options">
     @if (isAuthenticated()) {

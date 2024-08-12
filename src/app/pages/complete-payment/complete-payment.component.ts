@@ -27,6 +27,8 @@ export class CompletePaymentComponent implements OnInit, OnDestroy {
   public paymentDeadline!: Date;
   public shipmentInfo: ShipmentInfoDTO | null = null;
 
+  public completePaymentMessage: string = "The payment for this book has already been completed.";
+
   private destroy$: Subject<void> = new Subject();
 
   constructor(
@@ -77,8 +79,10 @@ export class CompletePaymentComponent implements OnInit, OnDestroy {
     this.listingService.completePayment(this.listingId)
       .subscribe(
         (response: any)=>{
-          if(this.listing)
+          if(this.listing){
+            this.completePaymentMessage = "The payment has ben successfully completed.";
             this.listing.paymentCompleted = true;
+          }
         }
       )
   }

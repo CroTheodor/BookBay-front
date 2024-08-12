@@ -5,6 +5,8 @@ export interface UserDTO {
   _id: string;
   roles: E_ROLE[];
   shipmentInfo?: ShipmentInfoDTO;
+  displayedRole?: string;
+  passwordReset: boolean;
 }
 
 export interface RegisterDTO{
@@ -16,6 +18,7 @@ export interface RegisterDTO{
 }
 
 export enum E_ROLE{
+  ADMINISTRATOR = "r_administrator",
   MODRATOR = "r_moderator",
   STUDENT = "r_student"
 }

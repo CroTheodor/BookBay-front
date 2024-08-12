@@ -14,7 +14,6 @@ export class AppInitService {
     return new Promise((resolve) => {
       const localToken = localStorage.getItem("authToken");
       if(localToken){
-        console.log("TOKEN FOUND!");
         const decodedToken = jwtDecode(localToken);
         const expireTime = decodedToken.exp! * 1000;
         if(Date.now() < expireTime){
@@ -22,9 +21,6 @@ export class AppInitService {
         } else{
           localStorage.removeItem("authToken");
         }
-      }
-      else {
-        console.log("NO TOKEN FOUND");
       }
       resolve();
     })

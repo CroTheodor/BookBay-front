@@ -77,12 +77,20 @@
       />
       @if (registerForm.get("confirm")?.hasError("required")) {
         <mat-error>You must confirm your password</mat-error>
-      }@else if (
-        registerForm.hasError("passwordMissmatch")
-      ) {
+      } @else if (registerForm.hasError("passwordMissmatch")) {
         <mat-error class="pw-error">Error: passwords do not match!</mat-error>
       }
     </mat-form-field>
+
+    @if (this.isModerator) {
+      <mat-form-field class="form-field">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="roles">
+          <mat-option [value]="'r_student'">Student</mat-option>
+          <mat-option [value]="'r_moderator'">Moderator</mat-option>
+        </mat-select>
+      </mat-form-field>
+    }
 
     <div class="error-container">
       @if (errorMsg) {

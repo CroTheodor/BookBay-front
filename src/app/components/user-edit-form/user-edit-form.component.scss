@@ -1,0 +1,49 @@
+.container {
+  background-color: white;
+  padding: 84px;
+  border-radius: 4px;
+
+  .edit-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-field {
+    width: 100%;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+
+    .btn-content {
+      display: flex;
+
+      .btn-spinner {
+        height: 24px;
+        width: 24px;
+
+        .mat-spinner {
+          height: 25px;
+        }
+      }
+    }
+  }
+
+  .pw-error {
+    color: red;
+  }
+
+  .error-container {
+    display: flex;
+    justify-content: center;
+
+    .error-text {
+      color: red;
+      font-size: 0.8m;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@if (this.data && this.columns) {
+  <div class="container">
+    <table mat-table [dataSource]="dataSource">
+      @for (column of columns; track column) {
+        <ng-container [matColumnDef]="column.label.toLowerCase()">
+          <th class="left-border" mat-header-cell *matHeaderCellDef>
+            {{ column.label }}
+          </th>
+          <td class="left-border" mat-cell *matCellDef="let element">
+            @if (column.forcedValue) {
+              {{ column.forcedValue }}
+            } @else if (column.calculateValue) {
+              {{ column.calculateValue(element) }}
+            } @else {
+              {{ element[column.fieldName] }}
+            }
+          </td>
+        </ng-container>
+      }
+      <!-- @if(this.actions){ -->
+      <ng-container matColumnDef="action">
+        <th class="left-border" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td
+          class="left-border btn-container"
+          mat-cell
+          *matCellDef="let element"
+        >
+          @for (action of actions; track action) {
+            <button
+              class="btn"
+              [style]=" action.disabledFunction && action.disabledFunction(element)
+                  ? ''
+                  : 'background-color:' + action.color "
+              [disabled]=" action.disabledFunction
+                  ? action.disabledFunction(element)
+                  : false
+              " (click)="action.function(element)"
+            >
+              <span class="material-symbols-outlined"> {{ action.icon }}</span>
+            </button>
+          }
+        </td>
+      </ng-container>
+      <!-- } -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    @if (this.showPaginator) {
+      <mat-paginator
+        #tablePaginator
+        [pageSizeOptions]="[10]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+        (page)="handlePageChange($event)"
+      >
+      </mat-paginator>
+    }
+  </div>
+}

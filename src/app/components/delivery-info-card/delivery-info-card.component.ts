@@ -68,7 +68,6 @@ export class DeliveryInfoCardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['info']) {
-      console.log(changes);
       if (!!this.info) {
         this.deliveryInfo.patchValue({ address: this.info.address });
         this.deliveryInfo.patchValue({ city: this.info.city });

@@ -1,5 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PaginatedRequest } from '../interfaces/http.model';
+import { generateParams } from '../utils/util-funs';
+import { Observable } from 'rxjs';
+import { UserDTO } from '../interfaces/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +28,15 @@ export class UserService {
 
   public getSupportedCounties(){
     return this.http.get(this.API_ROUTES.counties());
+  }
+
+  public getUsers(paginator: PaginatedRequest, filter:{key: string}): Observable<HttpResponse<UserDTO>>{
+    const httpParams = generateParams({...paginator, ...filter});
+    return this.http.get<HttpResponse<UserDTO>>(this.API_ROUTES.all(), {params: httpParams});
+  }
+
+  public deleteUser(id: string){
+    return this.http.delete(this.API_ROUTES.id(id));
   }
 
 }
